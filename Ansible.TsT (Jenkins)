@@ -1,0 +1,28 @@
+Started by user Application Support User
+Running as SYSTEM
+Building remotely on agent1 (appsupport ansible) in workspace /app/jenkins/workspace/ApplicationSupport/Ansible-demo
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-OwGal3HCvYGd/agent.13505
+SSH_AGENT_PID=13507
+[ssh-agent] Started.
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Ansible-demo@tmp/private_key_2191586145405685388.key (/app/jenkins/workspace/ApplicationSupport/Ansible-demo@tmp/private_key_2191586145405685388.key)
+[ssh-agent] Using credentials appsup01 (appsup01)
+[Ansible-demo] $ /app/ansible/bin/ansible-playbook /home/jenkins/ansible/Playbooks/ping.yml -i /tmp/inventory3067074703288596039.ini -l pvjenkins01.ote.gr -f 5 --private-key /tmp/ssh1513127971985839254.key -u appsup01
+
+PLAY [all] *********************************************************************
+
+TASK [PING] ********************************************************************
+ok: [pvjenkins01.ote.gr]
+
+PLAY RECAP *********************************************************************
+pvjenkins01.ote.gr         : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 13507 killed;
+[ssh-agent] Stopped.
+Finished: SUCCESS
