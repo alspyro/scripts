@@ -1,0 +1,374 @@
+//**********************************************************************************************************************/
+//  Created by Cognity Consulting
+//  
+//  Agent: COS_FX_VoiceRetail.VoiceRetail_WF_Proc1.Filename
+//  Abstract: This agent creates the appropriate filenames
+// 
+//  Version  Date        DCR                Author          Comments
+//  --------------------------------------------------------------------------------------------------------------------
+//  v1       03/07/2017  N/A                D.Ioannidis     Creation
+//  v2       10/10/2018  CR-82              V.Mokas         Add dir and filename for FO CF due to Move
+//  v3       03/09/2019  Nero               A.Spyropoulos   update for Nero
+//**********************************************************************************************************************/
+import ultra.COS_BM_ULT.COS_ULT_Error_UDRs;
+
+import apl.COS_BM_COMMON.GEN_APL_Functions;
+import apl.COS_BM_COMMON.GEN_APL_DB_Functions;
+
+persistent int FOPoolConnx_Seq;
+boolean FOPoolConnx_Seq_increase = false;
+
+//=============
+// OrigFilename is the filname came from the NE
+
+mimPublish(header, "NeFilename",                            string);
+mimPublish(header, "WF_Instance",                           string);
+mimPublish(header, "cuid",                                  string);
+mimPublish(global, "CollectionInstance",                    string);
+//
+mimPublish(global, "PRM_PhysicalFileIdentifier",            string);
+//
+mimPublish(global, "ASK_OutFileName",                       string);
+mimPublish(global, "LEGALFIXED_OutFileName",                string);
+mimPublish(global, "FMSFIXED_OutFileName",                  string);
+mimPublish(global, "PRMFIXED_OutFileName",                  string);
+mimPublish(global, "toProc2_WLR_OutFileName",               string);
+mimPublish(global, "toProc2_DW_OutFileName",                string);
+mimPublish(global, "toProc2_GNV_Voice_OutFileName",         string);
+mimPublish(global, "toProc2_GNV_Others_OutFileName",        string);
+//v3 START
+mimPublish(global, "HDFS_OutFileName",                         string);
+mimPublish(global, "HDFS_Ctrl_OutFileName",                    string);
+//v3 END
+
+//
+mimPublish(global, "Archive_Path_Tail_WebCDR_arch",         string);
+mimPublish(global, "Archive_Path_Tail_UDCS_arch",           string);
+mimPublish(global, "Archive_Path_Tail_FOInvalidABNumber",   string);
+mimPublish(global, "Archive_Path_Tail_FOPool",              string);
+mimPublish(global, "Archive_Path_Tail_FOFromCarrier",       string);
+mimPublish(global, "Archive_Path_Tail_FOVoice",             string);
+mimPublish(global, "Archive_Path_Tail_FOIN",                string);
+mimPublish(global, "Archive_Path_Tail_FOSyzeyxis",          string);
+mimPublish(global, "Archive_Path_Tail_FOConnxAndVoip",      string);
+mimPublish(global, "Archive_Path_Tail_FOIMSPool",           string);
+mimPublish(global, "Archive_Path_Tail_FOInvalidChars",      string);
+mimPublish(global, "Archive_Path_Tail_FOCFForFreeMove",      string);
+//mimPublish(global, "Archive_Path_Tail_FOPoolConnx",         string);
+//
+mimPublish(global, "WebCDR_arch_Filename",                  string);
+mimPublish(global, "UDCS_arch_Filename",                    string);
+mimPublish(global, "FOInvalidABNumber_Filename",            string);
+mimPublish(global, "FOPool_Filename",                       string);
+mimPublish(global, "FOFromCarrier_Filename",                string);
+mimPublish(global, "FOVoice_Filename",                      string);
+mimPublish(global, "FOIN_Filename",                         string);
+mimPublish(global, "FOSyzeyxis_Filename",                   string);
+mimPublish(global, "FOConnxAndVoip_Filename",               string);
+mimPublish(global, "FOIMSPool_Filename",                    string);
+mimPublish(global, "FOInvalidChars_Filename",               string);
+mimPublish(global, "FOCFForFreeMove_Filename",              string);
+
+//mimPublish(global, "FOPoolConnx_Filename",                  string);
+//
+string collFilename;
+string neFilename;
+string wf_instance;
+string neInstance;
+string cuid;
+string collectionInstance;
+string strNow_yyyyMMddHHmmss;
+string strNow_yyMMddHHmmss;
+string strNow_yyyyMMdd;
+string strNow_HHmmss;
+
+persistent int prmPhysicalIdentifierSeq;
+
+initialize 
+{
+    wf_instance = getWFinstance((string) mimGet("Workflow", "Workflow Name"));
+    mimSet("WF_Instance",  wf_instance);
+
+    string archive_Path_Tail_WebCDR_arch = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_WEBCDR_ARCH", "default");
+    mimSet("Archive_Path_Tail_WebCDR_arch", archive_Path_Tail_WebCDR_arch);
+    
+    string archive_Path_Tail_UDCS_arch = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_UDCS_ARCH", "default");
+    mimSet("Archive_Path_Tail_UDCS_arch", archive_Path_Tail_UDCS_arch);
+    
+    string archive_Path_Tail_FOInvalidABNumber = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOINVALIDABNUMBER", "default");
+    mimSet("Archive_Path_Tail_FOInvalidABNumber", archive_Path_Tail_FOInvalidABNumber);
+    
+    string archive_Path_Tail_FOPool = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOPOOL", "default");
+    mimSet("Archive_Path_Tail_FOPool", archive_Path_Tail_FOPool);
+    
+    string archive_Path_Tail_FOFromCarrier = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOFROMCARRIER", "default");
+    mimSet("Archive_Path_Tail_FOFromCarrier", archive_Path_Tail_FOFromCarrier);
+    
+    string archive_Path_Tail_FOVoice = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOVOICE", "default");
+    mimSet("Archive_Path_Tail_FOVoice", archive_Path_Tail_FOVoice);
+    
+    string archive_Path_Tail_FOIN = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOIN", "default");
+    mimSet("Archive_Path_Tail_FOIN", archive_Path_Tail_FOIN);
+    
+    string archive_Path_Tail_FOSyzeyxis = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOSYZEYXIS", "default");
+    mimSet("Archive_Path_Tail_FOSyzeyxis", archive_Path_Tail_FOSyzeyxis);
+    
+    string archive_Path_Tail_FOConnxAndVoip = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOCONNXANDVOIP", "default");
+    mimSet("Archive_Path_Tail_FOConnxAndVoip", archive_Path_Tail_FOConnxAndVoip);
+    
+    string archive_Path_Tail_FOIMSPool = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOIMSPOOL", "default");
+    mimSet("Archive_Path_Tail_FOIMSPool", archive_Path_Tail_FOIMSPool);
+    
+    string archive_Path_Tail_FOInvalidChars = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOINVALIDCHARS", "default");
+    mimSet("Archive_Path_Tail_FOInvalidChars", archive_Path_Tail_FOInvalidChars);
+    
+    string archive_Path_Tail_FOCFForFreeMove = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOCFFORFREEMOVE", "default");
+    mimSet("Archive_Path_Tail_FOCFForFreeMove", archive_Path_Tail_FOCFForFreeMove);
+   
+    
+//     string archive_Path_Tail_FOPoolConnx = (string) getRefParameter(wf_instance, "ARCH_PATH_TAIL_FOPOOLCONNX", "default");
+//     mimSet("Archive_Path_Tail_FOPoolConnx", archive_Path_Tail_FOPoolConnx);
+
+}
+
+
+beginBatch
+{ 
+    
+   
+    // Get the collectionFilename
+    collFilename = (string) mimGet("fromCollection", "Source Filename");
+
+    // Splits the Incomming filename from the Collection workflow. Use this function to split the filename.
+    list<string> collFilenameList = splitCollFilename(collFilename);
+    
+    neInstance = listGet(collFilenameList, 0);
+    
+    collectionInstance = listGet(collFilenameList, 0);
+    mimSet("CollectionInstance", collectionInstance);
+    
+    neFilename = listGet(collFilenameList, 1);
+    //list<string> neFilenameParts = strSplit(neFilename,"_");
+    //neFilename = listGet(neFilenameParts,0);
+    //neInstance = listGet(neFilenameParts,1);
+    mimSet("NeFilename", neFilename);
+    
+    cuid = listGet(collFilenameList, 2);
+    mimSet("cuid", cuid);
+    
+    date dtNow = dateCreateNow();
+    // construct the sequence numbers
+    dateToString(strNow_yyyyMMdd, dtNow, "yyyyMMdd");
+    dateToString(strNow_yyMMddHHmmss, dtNow, "yyMMddHHmmss");
+    dateToString(strNow_HHmmss, dtNow, "HHmmss");
+    
+    strNow_yyyyMMddHHmmss = strNow_yyyyMMdd + strNow_HHmmss;
+    
+    // ***** Custom Filename construction *****
+    
+    string prmPhysicalFileIdentifier;
+    long nowUnixSeconds = dateCreateNowMilliseconds() / 1000;
+    string strNowUnixSeconds = (string)nowUnixSeconds;
+    
+    if (strLength(strNowUnixSeconds) > 5)
+    {
+        prmPhysicalFileIdentifier = right(strNowUnixSeconds, 5);
+    }
+    else
+    {
+        prmPhysicalFileIdentifier = strNowUnixSeconds;
+    }
+    //
+    prmPhysicalFileIdentifier = strSubstring(prmPhysicalFileIdentifier, 0, strLength(prmPhysicalFileIdentifier)-1);
+    
+    if(prmPhysicalIdentifierSeq > 9)
+    {
+        prmPhysicalIdentifierSeq = 0;
+    }
+    prmPhysicalFileIdentifier = prmPhysicalFileIdentifier + prmPhysicalIdentifierSeq;
+    prmPhysicalIdentifierSeq++;
+
+    //
+    
+    prmPhysicalFileIdentifier = "8" + prmPhysicalFileIdentifier;
+    mimSet("PRM_PhysicalFileIdentifier", prmPhysicalFileIdentifier);
+    
+    //ASK_Disk
+    //WEBCDR_<ORGNAME:>_<DATE:yymmdd><TIME:hhmmss>.gz
+    string ASK_OutFileName = "WEBCDR_" + neFilename + "_" + strNow_yyMMddHHmmss;
+    mimSet("ASK_OutFileName", ASK_OutFileName);
+    
+    //LEGALFIXED_Disk
+    //WEBCDR_<ORGNAME:>_<DATE:yymmdd><TIME:hhmmss>.gz
+    string LEGALFIXED_OutFileName = "WEBCDR_" + neFilename + "_" + strNow_yyMMddHHmmss + "_E";
+    mimSet("LEGALFIXED_OutFileName", LEGALFIXED_OutFileName);
+
+    //FMSFIXED_Disk
+    //FMS_<ORGNAME:>_<DATE:yymmdd><TIME:hhmmss>.gz
+    //string FMSFIXED_OutFileName = wf_instance + ":" + "FMS_" + neFilename + "_" + strNow_yyyyMMddHHmmss;
+    string FMSFIXED_OutFileName = "FMS_" + neFilename + "_" + strNow_yyMMddHHmmss;
+    mimSet("FMSFIXED_OutFileName", FMSFIXED_OutFileName);
+
+    //PRMFIXED_Disk
+    //OTIC_IC_<physicalFileIdentifier>_<DATE:yyyymmdd>_<TIME:hhmmss>.ASC
+    //string PRMFIXED_OutFileName = wf_instance + ":" + "OTIC_IC_" + prmPhysicalFileIdentifier + "_" + strNow_yyyyMMddHHmmss + ".ASC";
+    string PRMFIXED_OutFileName = "OTIC_IC_" + prmPhysicalFileIdentifier + "_" + strNow_yyyyMMdd + "_" + strNow_HHmmss + ".ASC";
+    mimSet("PRMFIXED_OutFileName", PRMFIXED_OutFileName);
+
+    //toProc2_WLR_Disk
+    //neFilename:cuid
+    string toProc2_WLR_OutFileName = wf_instance + ":" + neFilename + ":" + cuid;
+    mimSet("toProc2_WLR_OutFileName", toProc2_WLR_OutFileName);
+    
+    //toProc2_DW_Disk
+    //neFilename:cuid
+    string toProc2_DW_OutFileName = wf_instance + ":" + neFilename + ":" + cuid;
+    mimSet("toProc2_DW_OutFileName", toProc2_DW_OutFileName);
+    
+    //toProc2_GNV_Voice_Disk
+    //<wfInstance>:<neFilename>:<cuid>
+    string toProc2_GNV_Voice_OutFileName = wf_instance + ":" + neFilename + ":" + cuid;
+    mimSet("toProc2_GNV_Voice_OutFileName", toProc2_GNV_Voice_OutFileName);
+    
+    //toProc2_GNV_Others_Disk
+    //<wfInstance>:<neFilename>:<cuid>
+    string toProc2_GNV_Others_OutFileName = wf_instance + ":" + neFilename + ":" + cuid;
+    mimSet("toProc2_GNV_Others_OutFileName", toProc2_GNV_Others_OutFileName);
+    
+    ///////////
+    //Archive and Filter Out (FO) filenames
+    
+    //WebCDR_arch
+    //<DATE:yyyymmdd>/WebCDR/WebCDR_<ORGNAME:>_<DATE:yyyymmdd><TIME:hhmmss>.gz
+    string WebCDR_arch_Filename = "WebCDR_" + neFilename + "_" + strNow_yyyyMMddHHmmss + ".gz";
+    mimSet("WebCDR_arch_Filename", WebCDR_arch_Filename);
+    
+    //UDCS_arch
+    ///var/opt/BGw/Archive/intermediate/
+    //<DATE:yyyymmdd>/UDCS/<ORGNAME:>.gz
+    string UDCS_arch_Filename = neFilename + ".gz";
+    mimSet("UDCS_arch_Filename", UDCS_arch_Filename);
+    
+    
+    
+    //FOInvalidABNumber_arch
+    //<DATE:yyyymmdd>/FilterOutANumBNum/<ORGNAME:>.gz
+    string FOInvalidABNumber_Filename = neFilename + ".gz";
+    mimSet("FOInvalidABNumber_Filename", FOInvalidABNumber_Filename);
+    
+    //FOPool_arch
+    //<DATE:yyyymmdd>/GMEDpool/pool_<ORGNAME:>.gz
+    string FOPool_Filename = "pool_" + neFilename + ".gz";
+    mimSet("FOPool_Filename", FOPool_Filename);
+    
+    //FOFromCarrier_arch
+    //<DATE:yyyymmdd>/FilterOutParohos/PA_<ORGNAME:>__<DATE:yymmdd>_<TIME:hhmmss>.gz
+    string FOFromCarrier_Filename = "PA_" + neFilename + "__" + strNow_yyyyMMdd + "_"+ strNow_HHmmss + ".gz";
+    mimSet("FOFromCarrier_Filename", FOFromCarrier_Filename);
+    
+    //FOVoice_arch
+    //<DATE:yyyymmdd>/FilterOutVoice/FO_VOICE_<ORGNAME:>__<DATE:yymmdd>_<TIME:hhmmss>.gz
+    string FOVoice_Filename = "FO_VOICE_" + neFilename + "__" + strNow_yyyyMMdd + "_"+ strNow_HHmmss + ".gz";
+    mimSet("FOVoice_Filename", FOVoice_Filename);
+    
+    //FOIN_arch
+    //<DATE:yyyymmdd>/FilterOutIN/FO_IN_<ORGNAME:>__<DATE:yymmdd>_<TIME:hhmmss>.gz
+    string FOIN_Filename = "FO_IN_" + neFilename + "__" + strNow_yyyyMMdd + "_"+ strNow_HHmmss + ".gz";
+    mimSet("FOIN_Filename", FOIN_Filename);
+    
+    //FOSyzeyxis_arch
+    //<DATE:yyyymmdd>/FilterOutSyzeyksis/FO_SYZ_<ORGNAME:>__<DATE:yymmdd>_<TIME:hhmmss>.gz
+    string FOSyzeyxis_Filename = "FO_SYZ_" + neFilename + "__" + strNow_yyyyMMdd + "_"+ strNow_HHmmss + ".gz";
+    mimSet("FOSyzeyxis_Filename", FOSyzeyxis_Filename);
+
+    //FOConnxAndVoip_arch
+    //<DATE:yyyymmdd>/FilterOutConns/FO_CON_VOIP_<ORGNAME:>__<DATE:yymmdd>_<TIME:hhmmss>.gz
+    string FOConnxAndVoip_Filename = "FO_CON_VOIP_" + neFilename + "__" + strNow_yyyyMMdd + "_"+ strNow_HHmmss + ".gz";
+    mimSet("FOConnxAndVoip_Filename", FOConnxAndVoip_Filename);
+    
+    //FOIMSPool_arch
+    //<DATE:yyyymmdd>/FilterOutIMS/FO_IMS_<ORGNAME:>__<DATE:yymmdd>_<TIME:hhmmss>.gz
+    string FOIMSPool_Filename = "FO_IMS_" + neFilename + "__" + strNow_yyyyMMdd + "_"+ strNow_HHmmss + ".gz";
+    mimSet("FOIMSPool_Filename", FOIMSPool_Filename);
+    
+    //FOInvalidChars_arch
+    //<DATE:yyyymmdd>/FilterOutBreakChars/<ORGNAME:>
+    string FOInvalidChars_Filename = neFilename;
+    mimSet("FOInvalidChars_Filename", FOInvalidChars_Filename);
+    
+    string FOCFForFreeMove_Filename = neFilename + ".gz"; ;
+    mimSet("FOCFForFreeMove_Filename", FOCFForFreeMove_Filename);
+    
+    //v3 START
+    
+    //HDFS
+    string HDFS = neInstance + "_" + neFilename;
+    mimSet("HDFS_OutFileName", HDFS);
+    
+    //HDFS Control
+    string HDFS_Ctrl = neInstance + "_" + neFilename + ".ctl";
+    mimSet("HDFS_Ctrl_OutFileName", HDFS_Ctrl);
+    
+    //v3 END
+
+}
+
+consume
+{ 
+    if (!instanceOf(input, UDCS_Record_ti)) 
+    {
+        debug(input);
+        
+        // Decoder Error
+        string errorMessage = "An error was encountered during file decoding.";
+
+        // Use empty error UDR to overwrite default errorCode and cancel the batch
+        emptyErrorUDR eUDR = udrCreate(emptyErrorUDR);
+        udrAddError(eUDR, "FILE_DECODING_ERROR", errorMessage);
+        cancelBatch(errorMessage, eUDR);
+        return;
+    }
+    UDCS_Record_ti udcsCDR = (UDCS_Record_ti) input;
+    
+    udrRoute(udcsCDR);
+}
+
+endBatch
+{
+//     string strFOPoolConnx_Seq = "0000";
+//     int FOPoolConnx_CDRs = (int)mimGet("procAndMap", "FOPoolConnx_CDRs");
+//     if(FOPoolConnx_CDRs > 0)
+//     {
+//         strFOPoolConnx_Seq = newFileCount(FOPoolConnx_Seq, 4);
+//         strToInt(FOPoolConnx_Seq, strFOPoolConnx_Seq);
+//         FOPoolConnx_Seq_increase = true;
+//     }
+//     //FOPoolConnx_arch
+//     //<DATE:yyyymmdd>/ConnxPool/CX<ORGNAME:2-8><ORGNAME:".20"-"_SEQ">_<SEQNO:0000-9999>.gz
+//     
+//     string FOPoolConnx_Filename = 
+//         "CX" + 
+//         strSubstring(neFilename, 2, 10) + 
+//         getSubstring
+//           (neFilename,  //strOriginal,
+//            -1,          //posStart,
+//            ".20",       //strMatchingStart,
+//            false,       //includeStart,
+//            -1,          //posEnd,
+//            "_SEQ",      //strMatchingEnd,
+//            false) +     //includeEnd)
+//         "_" + 
+//         strFOPoolConnx_Seq +
+//         ".gz";
+//     mimSet("FOPoolConnx_Filename", FOPoolConnx_Filename);
+    
+}
+
+cancelBatch
+{
+//     if(FOPoolConnx_Seq_increase)
+//     {
+//         FOPoolConnx_Seq--;
+//     }    
+    
+}
