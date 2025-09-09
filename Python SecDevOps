@@ -1,0 +1,218 @@
+1. Authentication & MFA
+
+2. Input sanitization
+
+3. Logging for compliance
+
+4. Encryption of sensitive data
+
+5. Secure API communication
+
+
+*********************************
+
+
+
+///////////>  1. User authentication with multi-factor support
+
+
+import hashlib
+import hmac
+import secrets
+
+def verify_password(stored_hash: str, password: str, salt: str) -> bool:
+    """
+    Verify a user's password against a stored salted hash.
+    """
+    pwd_hash = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 100000)
+    return hmac.compare_digest(stored_hash, pwd_hash.hex())
+
+def generate_otp(secret: str) -> str:
+    """
+    Generate a one-time password (OTP) for MFA (Time-based).
+    """
+    import pyotp
+    totp = pyotp.TOTP(secret)
+    return totp.now()
+
+
+Used in secure login systems for government staff.
+
+
+
+///////////>  2. Input validation & sanitization
+
+import re
+
+def sanitize_user_input(user_input: str) -> str:
+    """
+    Basic input sanitization: remove suspicious characters (to prevent injection attacks).
+    """
+    return re.sub(r'[^a-zA-Z0-9@._-]', '', user_input)
+
+
+ Prevents injection attacks in case management or HR applications.
+
+
+
+/////////>   3. Audit logging for compliance
+
+import logging
+from datetime import datetime
+
+logging.basicConfig(filename='audit.log', level=logging.INFO)
+
+def audit_log(user_id: str, action: str, resource: str):
+    """
+    Write a secure audit log entry for compliance (e.g., GDPR, BSI IT-Grundschutz).
+    """
+    timestamp = datetime.utcnow().isoformat()
+    logging.info(f"{timestamp} | user={user_id} | action={action} | resource={resource}")
+
+
+ Required in government systems for traceability and accountability.
+
+
+
+/////////>>>>   4. Data encryption/decryption <\\
+
+from cryptography.fernet import Fernet
+
+def encrypt_data(data: str, key: bytes) -> bytes:
+    """
+    Encrypt sensitive citizen or employee data.
+    """
+    cipher = Fernet(key)
+    return cipher.encrypt(data.encode())
+
+def decrypt_data(token: bytes, key: bytes) -> str:
+    """
+    Decrypt sensitive data.
+    """
+    cipher = Fernet(key)
+    return cipher.decrypt(token).decode()
+
+
+Used in internal document management or HR/payroll systems.
+
+
+//////////////////>>>>  5. Secure API request  <\\
+
+import requests
+
+def get_secure_api_data(url: str, token: str):
+    """
+    Call a secure government API with Bearer token authentication.
+    """
+    headers = {"Authorization": f"Bearer {token}"}
+    response = requests.get(url, headers=headers, timeout=5)
+    response.raise_for_status()
+    return response.json()
+
+
+1. Authentication & MFA
+
+2. Input sanitization
+
+3. Logging for compliance
+
+4. Encryption of sensitive data
+
+5. Secure API communication
+
+*-*-*-*-*-*- MINI APP script *-*-*-*-*-*-*-*
+
+Secure Login + Audit Logging (Python Example)
+import hashlib
+import hmac
+import secrets
+import logging
+from datetime import datetime
+
+# --- Setup audit logging ---
+logging.basicConfig(filename="audit.log", level=logging.INFO)
+
+def audit_log(user_id: str, action: str, success: bool):
+    """
+    Record an audit log entry for compliance and traceability.
+    """
+    timestamp = datetime.utcnow().isoformat()
+    status = "SUCCESS" if success else "FAILURE"
+    logging.info(f"{timestamp} | user={user_id} | action={action} | status={status}")
+
+
+# --- Secure password hashing ---
+def hash_password(password: str, salt: str) -> str:
+    """
+    Generate a salted password hash.
+    """
+    pwd_hash = hashlib.pbkdf2_hmac("sha256", password.encode(), salt.encode(), 100000)
+    return pwd_hash.hex()
+
+
+def verify_password(stored_hash: str, password: str, salt: str) -> bool:
+    """
+    Verify a given password against a stored salted hash.
+    """
+    pwd_hash = hashlib.pbkdf2_hmac("sha256", password.encode(), salt.encode(), 100000)
+    return hmac.compare_digest(stored_hash, pwd_hash.hex())
+
+
+# --- In-memory "user database" (for demo) ---
+USER_DB = {
+    "alice": {"salt": "abc123", "hash": hash_password("SecurePass1!", "abc123")},
+    "bob": {"salt": "xyz789", "hash": hash_password("AnotherPass2@", "xyz789")},
+}
+
+
+# --- Login function ---
+def login(username: str, password: str) -> bool:
+    """
+    Attempt a login with username and password.
+    Logs success/failure for auditing.
+    """
+    user = USER_DB.get(username)
+    if not user:
+        audit_log(username, "LOGIN", False)
+        return False
+
+    if verify_password(user["hash"], password, user["salt"]):
+        audit_log(username, "LOGIN", True)
+        return True
+    else:
+        audit_log(username, "LOGIN", False)
+        return False
+
+
+# --- Example usage ---
+if __name__ == "__main__":
+    print("🔐 Secure Login System Demo")
+    
+    # Correct login
+    if login("alice", "SecurePass1!"):
+        print("✅ Login successful for Alice")
+    else:
+        print("❌ Login failed for Alice")
+
+    # Incorrect login
+    if login("bob", "WrongPassword"):
+        print("✅ Login successful for Bob")
+    else:
+        print("❌ Login failed for Bob")
+
+🔎 What this example shows
+
+Password security: Uses hashlib.pbkdf2_hmac with salt (instead of storing plain passwords).
+
+Audit logging: Every login attempt (success/failure) is logged with timestamp → required in government systems for traceability.
+
+Safe comparisons: Uses hmac.compare_digest to prevent timing attacks.
+
+Extendability: Could integrate MFA (e.g., OTP) or token-based sessions.
+
+Audit log file (audit.log) would look like this:
+
+2025-08-27T14:12:03.456Z | user=alice | action=LOGIN | status=SUCCESS
+2025-08-27T14:12:10.789Z | user=bob | action=LOGIN | status=FAILURE
+
+
