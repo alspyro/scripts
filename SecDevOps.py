@@ -36,9 +36,6 @@ def generate_otp(secret: str) -> str:
     return totp.now()
 
 
-Used in secure login systems for government staff.
-
-
 
 ##2. Input validation & sanitization
 
@@ -70,9 +67,6 @@ def audit_log(user_id: str, action: str, resource: str):
     logging.info(f"{timestamp} | user={user_id} | action={action} | resource={resource}")
 
 
- Required in government systems for traceability and accountability.
-
-
 
 /////////>>>>   4. Data encryption/decryption <\\
 
@@ -93,9 +87,6 @@ def decrypt_data(token: bytes, key: bytes) -> str:
     return cipher.decrypt(token).decode()
 
 
-Used in internal document management or HR/payroll systems.
-
-
 ##5. Secure API request  <\\
 
 import requests
@@ -109,16 +100,6 @@ def get_secure_api_data(url: str, token: str):
     response.raise_for_status()
     return response.json()
 
-
-1. Authentication & MFA
-
-2. Input sanitization
-
-3. Logging for compliance
-
-4. Encryption of sensitive data
-
-5. Secure API communication
 
 *-*-*-*-*-*- MINI APP  *-*-*-*-*-*-*-*
 
