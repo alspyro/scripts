@@ -3,19 +3,11 @@ use File::Find;
 #
 #
 # Determines the number of files matching the regex in
-# the directories specified in Parallon_Num_Files.csv
+# the directories specified in XXX.csv
 #
-#
-# Raymond A. Meijer
-# Parallon Systems
-#
-# Version 1.00, 17-06-2010, initial version
-# Version 1.10, 21-06-2010, added name for message keys
-# Version 1.11, 02-07-2010, updated shebang
-# Version 1.12, 13-07-2010, removed debugging
 
-my $cfg_file="/cdr/mz/system/scripts/Monitoring/HPOVO/CFG/Monitor_cos_AXE_filter_num_of_files.csv";
-my $ctl_file="/cdr/mz/system/scripts/Monitoring/HPOVO/CTL/Cosmote_MZ_AXE_filtered_Num_File.pl.ctl";
+my $cfg_file="cfg.csv";
+my $ctl_file="file.pl.ctl";
 my $count = 0;
 my $nor = 0;
 my $war = 0;
@@ -30,7 +22,7 @@ $timestamp = substr($timestamp,0,-1);
 my $current_date = `date +"%Y%m%d"`;
 $current_date = substr($current_date,0,-1);  # Part of the new filename (Date)
 
-my $log_file="/cdr/mz/system/scripts/Monitoring/HPOVO/LOG/OVO_log_trace_$current_date.log";
+my $log_file="file.log";
 
 my %directory_state;
 my %checked_process;
@@ -56,7 +48,7 @@ elsif (! $^O =~ /hpux|solaris|linux/)
 chomp(my $hostname=qx{hostname});
 
 open my $append, '>>', $log_file  or die "error trying to create new file: $!";
-print $append "MZ Directory number of filtered AXE files started($hostname): $timestamp \n";
+print $append "Directory number of filtered AXE files started($hostname): $timestamp \n";
 close $append;
 
 sub read_state()
@@ -195,3 +187,4 @@ open my $append, '>>', $ctl_file  or die "error trying to create new file: $!";
 print $append "MZ Directory number of filtered AXE files completed($hostname): $timestamp (Number of directories:$count,Critical:$cri,Major:$maj,Minor:$min,Warning:$war,Normal:$nor)\n";
 close $append;
 exit 0;
+
