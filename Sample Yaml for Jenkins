@@ -1,0 +1,36 @@
+version: "1"
+
+agent:
+  label: "docker"   # or "any" if you don’t care about executor type
+
+stages:
+  - name: Checkout
+    steps:
+      - checkout: "https://github.com/your-org/your-repo.git"
+        branch: "main"
+
+  - name: Build
+    steps:
+      - sh: |
+          echo "Building project..."
+          ./gradlew build   # or mvn package, npm build, etc.
+
+  - name: Test
+    steps:
+      - sh: |
+          echo "Running tests..."
+          ./gradlew test    # replace with your test command
+
+  - name: Deploy
+    steps:
+      - sh: |
+          echo "Deploying application..."
+          ./scripts/deploy.sh   # your deployment script
+
+post:
+  always:
+    - sh: echo "Pipeline finished (success or failure)"
+  success:
+    - sh: echo "Deployment succeeded!"
+  failure:
+    - sh: echo "Deployment failed!"
