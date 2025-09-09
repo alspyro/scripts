@@ -1,0 +1,1176 @@
+Skip to content
+[Jenkins]Jenkins
+Search (CTRL+K)
+Spyropoulos Alexandros EXT
+
+log out
+Dashboard
+ApplicationSupport
+Test pipeline with logging
+#17414
+Status
+Changes
+Console Output
+View as plain text
+Edit Build Information
+Parameters
+Timings
+Git Build Data
+Git Build Data
+
+Open Blue Ocean
+Replay
+Pipeline Steps
+Previous Build
+Success
+Console Output
+Skipping 330 KB.. Full Log
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP05.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - solvatio -c '\''ps -ef | grep tomcat | grep -v grep'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP05.OTE.GR | CHANGED | rc=0 >>
+solvatio   47543       1  0 Jun13 ?        11:11:47 /usr/bin/java -Djava.util.logging.config.file=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dcomment=solvatioupsit2_Tomcat -server -Xms512M -Xmx1024M -XX:MaxPermSize=200m -verbose:gc -XX:+PrintGCDetails -Djava.awt.headless=true -XX:CompileCommand=exclude,javax/media/jai/LookupTableJAI.lookup -Duser.timezone=Europe/Athens -Djava.endorsed.dirs=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/endorsed -classpath /opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/bootstrap.jar:/opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/tomcat-juli.jar -Dcatalina.base=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Dcatalina.home=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Djava.io.tmpdir=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/temp org.apache.catalina.startup.Bootstrap start
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP05.OTE.GR' - Output:
+
+solvatio   47543       1  0 Jun13 ?        11:11:47 /usr/bin/java -Djava.util.logging.config.file=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dcomment=solvatioupsit2_Tomcat -server -Xms512M -Xmx1024M -XX:MaxPermSize=200m -verbose:gc -XX:+PrintGCDetails -Djava.awt.headless=true -XX:CompileCommand=exclude,javax/media/jai/LookupTableJAI.lookup -Duser.timezone=Europe/Athens -Djava.endorsed.dirs=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/endorsed -classpath /opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/bootstrap.jar:/opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/tomcat-juli.jar -Dcatalina.base=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Dcatalina.home=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Djava.io.tmpdir=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/temp org.apache.catalina.startup.Bootstrap start
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22347 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIOAPP06.OTE.GR - Exec: "sudo su - apache -c 'sudo systemctl status apache-httpd.service'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIOAPP06.OTE.GR, source:"sudo su - apache -c 'sudo systemctl status apache-httpd.service'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - apache -c 'sudo systemctl status apache-httpd.service'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-9v6esIycvEgI/agent.22385
+SSH_AGENT_PID=22387
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_8168039497514488077.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_8168039497514488077.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIOAPP06.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - apache -c 'sudo systemctl status apache-httpd.service'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP06.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - apache -c '\''sudo systemctl status apache-httpd.service'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP06.OTE.GR | CHANGED | rc=0 >>
+● apache-httpd.service - The Apache HTTP Server
+   Loaded: loaded (/etc/systemd/system/apache-httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2025-06-20 00:21:23 EEST; 2 months 20 days ago
+ Main PID: 13773 (httpd)
+    Tasks: 290 (limit: 203829)
+   Memory: 1.9G
+   CGroup: /system.slice/apache-httpd.service
+           ├─  13773 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13805 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_error_log_%d_%m_%Y 86400
+           ├─  13806 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_error_log_ssl_%d-%m-%Y 86400
+           ├─  13807 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/error_log_ssl_%d-%m-%Y 86400
+           ├─  13808 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_access_log_%d_%m_%Y 86400
+           ├─  13820 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_access_log_ssl_%d-%m-%Y 86400
+           ├─  13821 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_ssl_request_log_%d-%m-%Y 86400
+           ├─  13823 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/access_log_ssl_%d-%m-%Y 86400
+           ├─  13828 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/ssl_request_log_%d-%m-%Y 86400
+           ├─  13834 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13837 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/mod_jk.log__%d-%m-%Y 86400
+           ├─  13929 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─2792746 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─2841504 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3030237 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3486339 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3700679 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3715809 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3769943 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3774194 /opt/apps/apache/httpd//bin/httpd -k start
+           └─3776436 /opt/apps/apache/httpd//bin/httpd -k start
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP06.OTE.GR' - Output:
+
+● apache-httpd.service - The Apache HTTP Server
+   Loaded: loaded (/etc/systemd/system/apache-httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2025-06-20 00:21:23 EEST; 2 months 20 days ago
+ Main PID: 13773 (httpd)
+    Tasks: 290 (limit: 203829)
+   Memory: 1.9G
+   CGroup: /system.slice/apache-httpd.service
+           ├─  13773 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13805 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_error_log_%d_%m_%Y 86400
+           ├─  13806 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_error_log_ssl_%d-%m-%Y 86400
+           ├─  13807 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/error_log_ssl_%d-%m-%Y 86400
+           ├─  13808 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_access_log_%d_%m_%Y 86400
+           ├─  13820 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_access_log_ssl_%d-%m-%Y 86400
+           ├─  13821 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_ssl_request_log_%d-%m-%Y 86400
+           ├─  13823 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/access_log_ssl_%d-%m-%Y 86400
+           ├─  13828 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/ssl_request_log_%d-%m-%Y 86400
+           ├─  13834 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13837 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/mod_jk.log__%d-%m-%Y 86400
+           ├─  13929 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─2792746 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─2841504 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3030237 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3486339 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3700679 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3715809 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3769943 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3774194 /opt/apps/apache/httpd//bin/httpd -k start
+           └─3776436 /opt/apps/apache/httpd//bin/httpd -k start
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22387 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIOAPP06.OTE.GR - Exec: "sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIOAPP06.OTE.GR, source:"sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-GqX0v6TfaUFL/agent.22451
+SSH_AGENT_PID=22453
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_17053800581764865603.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_17053800581764865603.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIOAPP06.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP06.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - solvatio -c '\''ps -ef | grep tomcat | grep -v grep'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP06.OTE.GR | CHANGED | rc=0 >>
+solvatio   43692       1  0 Jun20 ?        09:38:16 /usr/bin/java -Djava.util.logging.config.file=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dcomment=solvatioupsit2_Tomcat -server -Xms512M -Xmx1024M -XX:MaxPermSize=200m -verbose:gc -XX:+PrintGCDetails -Djava.awt.headless=true -XX:CompileCommand=exclude,javax/media/jai/LookupTableJAI.lookup -Duser.timezone=Europe/Athens -Djava.endorsed.dirs=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/endorsed -classpath /opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/bootstrap.jar:/opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/tomcat-juli.jar -Dcatalina.base=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Dcatalina.home=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Djava.io.tmpdir=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/temp org.apache.catalina.startup.Bootstrap start
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP06.OTE.GR' - Output:
+
+solvatio   43692       1  0 Jun20 ?        09:38:16 /usr/bin/java -Djava.util.logging.config.file=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dcomment=solvatioupsit2_Tomcat -server -Xms512M -Xmx1024M -XX:MaxPermSize=200m -verbose:gc -XX:+PrintGCDetails -Djava.awt.headless=true -XX:CompileCommand=exclude,javax/media/jai/LookupTableJAI.lookup -Duser.timezone=Europe/Athens -Djava.endorsed.dirs=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/endorsed -classpath /opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/bootstrap.jar:/opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/tomcat-juli.jar -Dcatalina.base=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Dcatalina.home=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Djava.io.tmpdir=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/temp org.apache.catalina.startup.Bootstrap start
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22453 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIOAPP06.OTE.GR - Exec: "sudo su - solvatio -c 'sudo systemctl status solvatio.service'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIOAPP06.OTE.GR, source:"sudo su - solvatio -c 'sudo systemctl status solvatio.service'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - solvatio -c 'sudo systemctl status solvatio.service'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-9feCZZ4O1Qii/agent.22519
+SSH_AGENT_PID=22521
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_6187596022658796092.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_6187596022658796092.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIOAPP06.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - solvatio -c 'sudo systemctl status solvatio.service'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP06.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - solvatio -c '\''sudo systemctl status solvatio.service'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP06.OTE.GR | CHANGED | rc=0 >>
+● solvatio.service - solvatio Runtime Cluster Node (pvlasolvatioapp02_runtime_node)
+   Loaded: loaded (/etc/systemd/system/solvatio.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2025-06-20 00:21:22 EEST; 2 months 20 days ago
+ Main PID: 13204 (jsvc)
+    Tasks: 434 (limit: 203829)
+   Memory: 23.0G
+   CGroup: /system.slice/solvatio.service
+           ├─13204 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp06_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp06.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp06_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.11 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+           └─13210 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp06_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp06.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp06_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.11 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP06.OTE.GR' - Output:
+
+● solvatio.service - solvatio Runtime Cluster Node (pvlasolvatioapp02_runtime_node)
+   Loaded: loaded (/etc/systemd/system/solvatio.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2025-06-20 00:21:22 EEST; 2 months 20 days ago
+ Main PID: 13204 (jsvc)
+    Tasks: 434 (limit: 203829)
+   Memory: 23.0G
+   CGroup: /system.slice/solvatio.service
+           ├─13204 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp06_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp06.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp06_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.11 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+           └─13210 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp06_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp06.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp06_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.11 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22521 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIOAPP07.OTE.GR - Exec: "sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIOAPP07.OTE.GR, source:"sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-TvEtNYo2npu9/agent.22565
+SSH_AGENT_PID=22567
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_6810585444583307304.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_6810585444583307304.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIOAPP07.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - solvatio -c 'ps -ef | grep tomcat | grep -v grep'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP07.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - solvatio -c '\''ps -ef | grep tomcat | grep -v grep'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP07.OTE.GR | CHANGED | rc=0 >>
+solvatio   43861       1  0 Jul15 ?        06:34:12 /usr/bin/java -Djava.util.logging.config.file=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dcomment=solvatioupsit2_Tomcat -server -Xms512M -Xmx1024M -XX:MaxPermSize=200m -verbose:gc -XX:+PrintGCDetails -Djava.awt.headless=true -XX:CompileCommand=exclude,javax/media/jai/LookupTableJAI.lookup -Duser.timezone=Europe/Athens -Djava.endorsed.dirs=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/endorsed -classpath /opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/bootstrap.jar:/opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/tomcat-juli.jar -Dcatalina.base=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Dcatalina.home=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Djava.io.tmpdir=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/temp org.apache.catalina.startup.Bootstrap start
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP07.OTE.GR' - Output:
+
+solvatio   43861       1  0 Jul15 ?        06:34:12 /usr/bin/java -Djava.util.logging.config.file=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dcomment=solvatioupsit2_Tomcat -server -Xms512M -Xmx1024M -XX:MaxPermSize=200m -verbose:gc -XX:+PrintGCDetails -Djava.awt.headless=true -XX:CompileCommand=exclude,javax/media/jai/LookupTableJAI.lookup -Duser.timezone=Europe/Athens -Djava.endorsed.dirs=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/endorsed -classpath /opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/bootstrap.jar:/opt/apps/solvatio/apps/apache-tomcat-7.0.62/bin/tomcat-juli.jar -Dcatalina.base=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Dcatalina.home=/opt/apps/solvatio/apps/apache-tomcat-7.0.62 -Djava.io.tmpdir=/opt/apps/solvatio/apps/apache-tomcat-7.0.62/temp org.apache.catalina.startup.Bootstrap start
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22567 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIOAPP07.OTE.GR - Exec: "sudo su - apache -c 'sudo systemctl status apache-httpd.service'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIOAPP07.OTE.GR, source:"sudo su - apache -c 'sudo systemctl status apache-httpd.service'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - apache -c 'sudo systemctl status apache-httpd.service'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-C2trPlKwjmJs/agent.22607
+SSH_AGENT_PID=22609
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_7808112917024723428.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_7808112917024723428.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIOAPP07.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - apache -c 'sudo systemctl status apache-httpd.service'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP07.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - apache -c '\''sudo systemctl status apache-httpd.service'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP07.OTE.GR | CHANGED | rc=0 >>
+● apache-httpd.service - The Apache HTTP Server
+   Loaded: loaded (/etc/systemd/system/apache-httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2025-07-15 23:16:22 EEST; 1 months 25 days ago
+  Process: 12555 ExecStart=/opt/apps/apache/httpd/bin/apachectl -k start (code=exited, status=0/SUCCESS)
+ Main PID: 13531 (httpd)
+    Tasks: 290 (limit: 203829)
+   Memory: 1.9G
+   CGroup: /system.slice/apache-httpd.service
+           ├─  13531 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13547 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_error_log_%d_%m_%Y 86400
+           ├─  13551 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_error_log_ssl_%d-%m-%Y 86400
+           ├─  13552 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/error_log_ssl_%d-%m-%Y 86400
+           ├─  13554 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_access_log_%d_%m_%Y 86400
+           ├─  13555 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_access_log_ssl_%d-%m-%Y 86400
+           ├─  13556 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_ssl_request_log_%d-%m-%Y 86400
+           ├─  13575 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/access_log_ssl_%d-%m-%Y 86400
+           ├─  13577 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/ssl_request_log_%d-%m-%Y 86400
+           ├─  13597 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13598 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/mod_jk.log__%d-%m-%Y 86400
+           ├─  13904 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─1834852 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3784203 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3796836 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3918312 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4051947 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4054427 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4096789 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4105550 /opt/apps/apache/httpd//bin/httpd -k start
+           └─4129512 /opt/apps/apache/httpd//bin/httpd -k start
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP07.OTE.GR' - Output:
+
+● apache-httpd.service - The Apache HTTP Server
+   Loaded: loaded (/etc/systemd/system/apache-httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2025-07-15 23:16:22 EEST; 1 months 25 days ago
+  Process: 12555 ExecStart=/opt/apps/apache/httpd/bin/apachectl -k start (code=exited, status=0/SUCCESS)
+ Main PID: 13531 (httpd)
+    Tasks: 290 (limit: 203829)
+   Memory: 1.9G
+   CGroup: /system.slice/apache-httpd.service
+           ├─  13531 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13547 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_error_log_%d_%m_%Y 86400
+           ├─  13551 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_error_log_ssl_%d-%m-%Y 86400
+           ├─  13552 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/error_log_ssl_%d-%m-%Y 86400
+           ├─  13554 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/APACHE_access_log_%d_%m_%Y 86400
+           ├─  13555 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_access_log_ssl_%d-%m-%Y 86400
+           ├─  13556 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/8444_ssl_request_log_%d-%m-%Y 86400
+           ├─  13575 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/access_log_ssl_%d-%m-%Y 86400
+           ├─  13577 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd//logs/ssl_request_log_%d-%m-%Y 86400
+           ├─  13597 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─  13598 /opt/apps/apache/httpd/bin/rotatelogs -l /opt/apps/apache/httpd/logs/mod_jk.log__%d-%m-%Y 86400
+           ├─  13904 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─1834852 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3784203 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3796836 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─3918312 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4051947 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4054427 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4096789 /opt/apps/apache/httpd//bin/httpd -k start
+           ├─4105550 /opt/apps/apache/httpd//bin/httpd -k start
+           └─4129512 /opt/apps/apache/httpd//bin/httpd -k start
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22609 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIOAPP07.OTE.GR - Exec: "sudo su - solvatio -c 'sudo systemctl status solvatio.service'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIOAPP07.OTE.GR, source:"sudo su - solvatio -c 'sudo systemctl status solvatio.service'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - solvatio -c 'sudo systemctl status solvatio.service'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-mKhds1avzLKd/agent.22652
+SSH_AGENT_PID=22654
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_8577749519603760262.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_8577749519603760262.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIOAPP07.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - solvatio -c 'sudo systemctl status solvatio.service'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP07.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - solvatio -c '\''sudo systemctl status solvatio.service'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP07.OTE.GR | CHANGED | rc=0 >>
+● solvatio.service - solvatio Runtime Cluster Node (pvlasolvatioapp02_runtime_node)
+   Loaded: loaded (/etc/systemd/system/solvatio.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2025-07-15 23:16:22 EEST; 1 months 25 days ago
+  Process: 12536 ExecStart=/opt/apps/solvatio/apps/runtime-cluster/run-service.sh start (code=exited, status=0/SUCCESS)
+ Main PID: 12758 (jsvc)
+    Tasks: 412 (limit: 203829)
+   Memory: 23.6G
+   CGroup: /system.slice/solvatio.service
+           ├─12758 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp07_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp07.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp07_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.12 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+           └─12759 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp07_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp07.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp07_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.12 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP07.OTE.GR' - Output:
+
+● solvatio.service - solvatio Runtime Cluster Node (pvlasolvatioapp02_runtime_node)
+   Loaded: loaded (/etc/systemd/system/solvatio.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2025-07-15 23:16:22 EEST; 1 months 25 days ago
+  Process: 12536 ExecStart=/opt/apps/solvatio/apps/runtime-cluster/run-service.sh start (code=exited, status=0/SUCCESS)
+ Main PID: 12758 (jsvc)
+    Tasks: 412 (limit: 203829)
+   Memory: 23.6G
+   CGroup: /system.slice/solvatio.service
+           ├─12758 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp07_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp07.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp07_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.12 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+           └─12759 jsvc.exec -umask 0022 -cp plugins/org.apache.commons.daemon_1.0.15.jar:plugins/com.iisy.solvatio.platform.daemon_1.0.0.202412061004.jar:plugins/org.eclipse.osgi_3.20.0.v20240509-1421.jar -outfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.out -errfile /opt/apps/solvatio/home/runtime-node/logs/solvatio.err -cwd . -pidfile /opt/apps/solvatio/home/runtime-node/run/solvatio.pid -java-home /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64 --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED -Dosgi.configuration.area=configuration -Dosgi.install.area=. -Dosgi.compatibility.bootdelegation=true -Dsolvatio.home=/opt/apps/solvatio/home/runtime-node -Djava.locale.providers=COMPAT -Djava.util.logging.config.file=file:///opt/apps/solvatio/apps/runtime-cluster/logger.properties -Dequinox.ds.block_timeout=300000000 -Djava.lang.Integer.IntegerCache.high=200000 -Dsolvatio.nodemanager.port=19178 -Dsolvatio.nodemanager.host=pvlasolvatioapp03.ote.gr -Dsolvatio.client.id=pvlasolvatioapp07_runtime_node -Dsolvatio.client.type=cluster -Dsolvatio.client.hostname=pvlasolvatioapp07.ote.gr -Dsolvatio.app.internal.port=19378 -Dcom.iisy.solvatio.runtime.nodeid=pvlasolvatioapp07_runtime_node -Dcom.solvatio.platform.ignite.localHost=10.53.37.12 -Djetty.home=/opt/apps/solvatio/home/runtime-node/jetty -Djetty.etc.config.urls=etc/jetty.xml,etc/jetty-deployer.xml,etc/jetty-http.xml,etc/jetty-ssl-context.xml,etc/jetty-ssl.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl-context.xml,file:///opt/apps/solvatio/apps/runtime-cluster/jetty/etc/solvatio-ssl.xml -Djetty.http.port=8080 -Djetty.ssl.port=7443 -Dsolvatio.app.base=/opt/apps/solvatio/apps/runtime-cluster -Xms16g -Xmx16g -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:MaxMetaspaceSize=1024m -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/solvatio/home/runtime-node/logs/log%t.log:time,level,tags:filecount=10,filesize=50M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/solvatio/home/runtime-node -XX:+ExitOnOutOfMemoryError -Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true -server -Dserver.max-http-header-size=16 -Dcom.solvatio.core.operationcluster.queueWorkingDelay=200 -Dsolvatio.app.session.cookie.sameSite=__SAME_SITE_STRICT__ -Dsolvatio.app.session.id=__Secure-JSESSIONID -Dsolvatio.app.session.cookie.secure=true com.iisy.solvatio.platform.daemon.SolvatioDaemon -clean
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22654 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIODB01.OTE.GR - Exec: "sudo su - ignite -c  'sudo systemctl status ignite.service'") ((COMMAND) - Server: PVLASOLVATIODB01.OTE.GR - Exec: "sudo su - ignite -c  'sudo systemctl status ignite.service'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIODB01.OTE.GR, source:"sudo su - ignite -c  'sudo systemctl status ignite.service'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - ignite -c  'sudo systemctl status ignite.service'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-T7kK6Dh7dFGK/agent.22692
+SSH_AGENT_PID=22694
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_2522384001882842826.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_2522384001882842826.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIODB01.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - ignite -c  'sudo systemctl status ignite.service'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIODB01.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - ignite -c  '\''sudo systemctl status ignite.service'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIODB01.OTE.GR | CHANGED | rc=0 >>
+● ignite.service - Apache Ignite Service
+   Loaded: loaded (/etc/systemd/system/ignite.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2025-06-13 22:12:32 EEST; 2 months 26 days ago
+ Main PID: 13613 (start-ignite.sh)
+    Tasks: 162 (limit: 203630)
+   Memory: 27.1G
+   CGroup: /system.slice/ignite.service
+           ├─13613 /bin/bash /opt/apps/ignite/apps/ignite/start-ignite.sh
+           ├─13826 bash /opt/apps/ignite/apps/ignite/bin/ignite.sh /opt/apps/ignite/apps/ignite/config/production-config.xml
+           └─24581 /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64/bin/java -DIGNITE_QUIET=false --add-opens=java.base/jdk.internal.access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/sun.security.ssl=ALL-UNNAMED --add-opens=java.base/sun.security.x509=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED -DIGNITE_TO_STRING_INCLUDE_SENSITIVE=false -DIGNITE_UPDATE_NOTIFIER=false -Dlogback.configurationFile=/opt/apps/ignite/home/ignite/logback.xml -Djava.net.preferIPv4Stack=true -Xms8g -Xmx8g -server -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:+DisableExplicitGC -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/ignite/home/ignite -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/ignite/home/ignite/log/gclog%t.log:time,level,tags:filecount=10,filesize=50M -Dsolvatio.home=/opt/apps/ignite/home/ignite -Dworking.dir=/opt/apps/ignite/home/ignite/data -Dnodes=10.53.42.54:47500..47509,10.53.42.55:47500..47509,10.53.42.62:47500..47509 -Dinflux.srv=http://10.53.36.233:8086 -Dinflux.db=solvatio -Dinflux.user= -Dinflux.password= -Dinflux.node=pvlasolvatiodb01_ignite_node -DlocalHost=10.53.42.54 -DcommunicationSpi.localPort=47000 -DcommunicationSpi.localPortRange=100 -DdiscoverySpi.localPort=47500 -DdiscoverySpi.localPortRange=100 -DoffHeapSize=10 -Dfile.encoding=UTF-8 -DIGNITE_SUCCESS_FILE=/opt/apps/ignite/apps/ignite/work/ignite_success_d6316d9b-e838-4718-b0f5-7c941bc90fd4 -DIGNITE_HOME=/opt/apps/ignite/apps/ignite -DIGNITE_PROG_NAME=/opt/apps/ignite/apps/ignite/bin/ignite.sh -cp /opt/apps/ignite/apps/ignite/libs/*:/opt/apps/ignite/apps/ignite/libs/ignite-control-utility/*:/opt/apps/ignite/apps/ignite/libs/ignite-indexing/*:/opt/apps/ignite/apps/ignite/libs/ignite-spring/*:/opt/apps/ignite/apps/ignite/libs/licenses/* org.apache.ignite.startup.cmdline.CommandLineStartup /opt/apps/ignite/apps/ignite/config/production-config.xml
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIODB01.OTE.GR' - Output:
+
+● ignite.service - Apache Ignite Service
+   Loaded: loaded (/etc/systemd/system/ignite.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2025-06-13 22:12:32 EEST; 2 months 26 days ago
+ Main PID: 13613 (start-ignite.sh)
+    Tasks: 162 (limit: 203630)
+   Memory: 27.1G
+   CGroup: /system.slice/ignite.service
+           ├─13613 /bin/bash /opt/apps/ignite/apps/ignite/start-ignite.sh
+           ├─13826 bash /opt/apps/ignite/apps/ignite/bin/ignite.sh /opt/apps/ignite/apps/ignite/config/production-config.xml
+           └─24581 /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64/bin/java -DIGNITE_QUIET=false --add-opens=java.base/jdk.internal.access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/sun.security.ssl=ALL-UNNAMED --add-opens=java.base/sun.security.x509=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED -DIGNITE_TO_STRING_INCLUDE_SENSITIVE=false -DIGNITE_UPDATE_NOTIFIER=false -Dlogback.configurationFile=/opt/apps/ignite/home/ignite/logback.xml -Djava.net.preferIPv4Stack=true -Xms8g -Xmx8g -server -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:+DisableExplicitGC -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/ignite/home/ignite -XX:+UseG1GC -XX:+ParallelRefProcEnabled -Xlog:gc*,safepoint:/opt/apps/ignite/home/ignite/log/gclog%t.log:time,level,tags:filecount=10,filesize=50M -Dsolvatio.home=/opt/apps/ignite/home/ignite -Dworking.dir=/opt/apps/ignite/home/ignite/data -Dnodes=10.53.42.54:47500..47509,10.53.42.55:47500..47509,10.53.42.62:47500..47509 -Dinflux.srv=http://10.53.36.233:8086 -Dinflux.db=solvatio -Dinflux.user= -Dinflux.password= -Dinflux.node=pvlasolvatiodb01_ignite_node -DlocalHost=10.53.42.54 -DcommunicationSpi.localPort=47000 -DcommunicationSpi.localPortRange=100 -DdiscoverySpi.localPort=47500 -DdiscoverySpi.localPortRange=100 -DoffHeapSize=10 -Dfile.encoding=UTF-8 -DIGNITE_SUCCESS_FILE=/opt/apps/ignite/apps/ignite/work/ignite_success_d6316d9b-e838-4718-b0f5-7c941bc90fd4 -DIGNITE_HOME=/opt/apps/ignite/apps/ignite -DIGNITE_PROG_NAME=/opt/apps/ignite/apps/ignite/bin/ignite.sh -cp /opt/apps/ignite/apps/ignite/libs/*:/opt/apps/ignite/apps/ignite/libs/ignite-control-utility/*:/opt/apps/ignite/apps/ignite/libs/ignite-indexing/*:/opt/apps/ignite/apps/ignite/libs/ignite-spring/*:/opt/apps/ignite/apps/ignite/libs/licenses/* org.apache.ignite.startup.cmdline.CommandLineStartup /opt/apps/ignite/apps/ignite/config/production-config.xml
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22694 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIODB02.OTE.GR - Exec: "sudo su - ignite -c  'sudo systemctl status ignite.service'") ((COMMAND) - Server: PVLASOLVATIODB02.OTE.GR - Exec: "sudo su - ignite -c  'sudo systemctl status ignite.service'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIODB02.OTE.GR, source:"sudo su - ignite -c  'sudo systemctl status ignite.service'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - ignite -c  'sudo systemctl status ignite.service'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-BqznEo5DH0Tv/agent.22737
+SSH_AGENT_PID=22739
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_16271204953142370535.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_16271204953142370535.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIODB02.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - ignite -c  'sudo systemctl status ignite.service'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIODB02.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - ignite -c  '\''sudo systemctl status ignite.service'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIODB02.OTE.GR | CHANGED | rc=0 >>
+● ignite.service - Apache Ignite Service
+   Loaded: loaded (/etc/systemd/system/ignite.service; enabled; vendor preset: disabled)
+   Active: active (running) since Thu 2025-06-19 23:47:36 EEST; 2 months 20 days ago
+ Main PID: 13544 (start-ignite.sh)
+    Tasks: 163 (limit: 203630)
+   Memory: 26.6G
+   CGroup: /system.slice/ignite.service
+           ├─13544 /bin/bash /opt/apps/ignite/apps/ignite/start-ignite.sh
+           ├─13680 bash /opt/apps/ignite/apps/ignite/bin/ignite.sh /opt/apps/ignite/apps/ignite/config/production-config.xml
+           └─23495 /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64/bin/java -DIGNITE_QUIET=false --add-opens=java.base/jdk.internal.access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/sun.security.ssl=ALL-UNNAMED --add-opens=java.base/sun.security.x509=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED -DIGNITE_TO_STRING_INCLUDE_SENSITIVE=false -DIGNITE_UPDATE_NOTIFIER=false -Dlogback.configurationFile=/opt/apps/ignite/home/ignite/logback.xml -Djava.net.preferIPv4Stack=true -Xms8g -Xmx8g -server -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/ignite/home/ignite -Xlog:gc*,safepoint:/opt/apps/ignite/home/ignite/log/gclog%t.log:time,level,tags:filecount=10,filesize=50M -Dsolvatio.home=/opt/apps/ignite/home/ignite -Dworking.dir=/opt/apps/ignite/home/ignite/data -Dnodes=10.53.42.54:47500..47509,10.53.42.55:47500..47509,10.53.42.62:47500..47509 -Dinflux.srv=http://10.53.36.233:8086 -Dinflux.db=solvatio -Dinflux.user= -Dinflux.password= -Dinflux.node=pvlasolvatiodb02_ignite_node -DlocalHost=10.53.42.55 -DcommunicationSpi.localPort=47000 -DcommunicationSpi.localPortRange=100 -DdiscoverySpi.localPort=47500 -DdiscoverySpi.localPortRange=100 -DoffHeapSize=10 -Dfile.encoding=UTF-8 -DIGNITE_SUCCESS_FILE=/opt/apps/ignite/apps/ignite/work/ignite_success_4ec823cb-3b9f-4b6e-ba0c-ecb6e74ac7df -DIGNITE_HOME=/opt/apps/ignite/apps/ignite -DIGNITE_PROG_NAME=/opt/apps/ignite/apps/ignite/bin/ignite.sh -cp /opt/apps/ignite/apps/ignite/libs/*:/opt/apps/ignite/apps/ignite/libs/ignite-control-utility/*:/opt/apps/ignite/apps/ignite/libs/ignite-indexing/*:/opt/apps/ignite/apps/ignite/libs/ignite-spring/*:/opt/apps/ignite/apps/ignite/libs/licenses/* org.apache.ignite.startup.cmdline.CommandLineStartup /opt/apps/ignite/apps/ignite/config/production-config.xml
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIODB02.OTE.GR' - Output:
+
+● ignite.service - Apache Ignite Service
+   Loaded: loaded (/etc/systemd/system/ignite.service; enabled; vendor preset: disabled)
+   Active: active (running) since Thu 2025-06-19 23:47:36 EEST; 2 months 20 days ago
+ Main PID: 13544 (start-ignite.sh)
+    Tasks: 163 (limit: 203630)
+   Memory: 26.6G
+   CGroup: /system.slice/ignite.service
+           ├─13544 /bin/bash /opt/apps/ignite/apps/ignite/start-ignite.sh
+           ├─13680 bash /opt/apps/ignite/apps/ignite/bin/ignite.sh /opt/apps/ignite/apps/ignite/config/production-config.xml
+           └─23495 /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64/bin/java -DIGNITE_QUIET=false --add-opens=java.base/jdk.internal.access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/sun.security.ssl=ALL-UNNAMED --add-opens=java.base/sun.security.x509=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED -DIGNITE_TO_STRING_INCLUDE_SENSITIVE=false -DIGNITE_UPDATE_NOTIFIER=false -Dlogback.configurationFile=/opt/apps/ignite/home/ignite/logback.xml -Djava.net.preferIPv4Stack=true -Xms8g -Xmx8g -server -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/ignite/home/ignite -Xlog:gc*,safepoint:/opt/apps/ignite/home/ignite/log/gclog%t.log:time,level,tags:filecount=10,filesize=50M -Dsolvatio.home=/opt/apps/ignite/home/ignite -Dworking.dir=/opt/apps/ignite/home/ignite/data -Dnodes=10.53.42.54:47500..47509,10.53.42.55:47500..47509,10.53.42.62:47500..47509 -Dinflux.srv=http://10.53.36.233:8086 -Dinflux.db=solvatio -Dinflux.user= -Dinflux.password= -Dinflux.node=pvlasolvatiodb02_ignite_node -DlocalHost=10.53.42.55 -DcommunicationSpi.localPort=47000 -DcommunicationSpi.localPortRange=100 -DdiscoverySpi.localPort=47500 -DdiscoverySpi.localPortRange=100 -DoffHeapSize=10 -Dfile.encoding=UTF-8 -DIGNITE_SUCCESS_FILE=/opt/apps/ignite/apps/ignite/work/ignite_success_4ec823cb-3b9f-4b6e-ba0c-ecb6e74ac7df -DIGNITE_HOME=/opt/apps/ignite/apps/ignite -DIGNITE_PROG_NAME=/opt/apps/ignite/apps/ignite/bin/ignite.sh -cp /opt/apps/ignite/apps/ignite/libs/*:/opt/apps/ignite/apps/ignite/libs/ignite-control-utility/*:/opt/apps/ignite/apps/ignite/libs/ignite-indexing/*:/opt/apps/ignite/apps/ignite/libs/ignite-spring/*:/opt/apps/ignite/apps/ignite/libs/licenses/* org.apache.ignite.startup.cmdline.CommandLineStartup /opt/apps/ignite/apps/ignite/config/production-config.xml
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22739 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIODB03.OTE.GR - Exec: "sudo su - postgres -c 'pg_ctl status'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIODB03.OTE.GR, source:"sudo su - postgres -c 'pg_ctl status'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - postgres -c 'pg_ctl status'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-BZFREGjH3h7H/agent.22786
+SSH_AGENT_PID=22788
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_15378089322656541974.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_15378089322656541974.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIODB03.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - postgres -c 'pg_ctl status'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIODB03.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - postgres -c '\''pg_ctl status'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIODB03.OTE.GR | CHANGED | rc=0 >>
+pg_ctl: server is running (PID: 13880)
+/data/postgres/11/bin/postgres "-D" "/data/postgres/11/data" "-p" "5432"
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIODB03.OTE.GR' - Output:
+
+pg_ctl: server is running (PID: 13880)
+/data/postgres/11/bin/postgres "-D" "/data/postgres/11/data" "-p" "5432"
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22788 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIODB04.OTE.GR - Exec: "sudo su - ignite -c  'sudo systemctl status ignite.service'") ((COMMAND) - Server: PVLASOLVATIODB04.OTE.GR - Exec: "sudo su - ignite -c  'sudo systemctl status ignite.service'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIODB04.OTE.GR, source:"sudo su - ignite -c  'sudo systemctl status ignite.service'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - ignite -c  'sudo systemctl status ignite.service'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-CrRYviZjdmaf/agent.22830
+SSH_AGENT_PID=22832
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_10178189812558792420.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_10178189812558792420.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIODB04.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - ignite -c  'sudo systemctl status ignite.service'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIODB04.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - ignite -c  '\''sudo systemctl status ignite.service'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIODB04.OTE.GR | CHANGED | rc=0 >>
+● ignite.service - Apache Ignite Service
+   Loaded: loaded (/etc/systemd/system/ignite.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2025-07-15 23:16:39 EEST; 1 months 25 days ago
+ Main PID: 14584 (start-ignite.sh)
+    Tasks: 162 (limit: 203826)
+   Memory: 26.7G
+   CGroup: /system.slice/ignite.service
+           ├─14584 /bin/bash /opt/apps/ignite/apps/ignite/start-ignite.sh
+           ├─14739 bash /opt/apps/ignite/apps/ignite/bin/ignite.sh /opt/apps/ignite/apps/ignite/config/production-config.xml
+           └─23531 /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64/bin/java -DIGNITE_QUIET=false --add-opens=java.base/jdk.internal.access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/sun.security.ssl=ALL-UNNAMED --add-opens=java.base/sun.security.x509=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED -DIGNITE_TO_STRING_INCLUDE_SENSITIVE=false -DIGNITE_UPDATE_NOTIFIER=false -Dlogback.configurationFile=/opt/apps/ignite/home/ignite/logback.xml -Djava.net.preferIPv4Stack=true -Xms8g -Xmx8g -server -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/ignite/home/ignite -Xlog:gc*,safepoint:/opt/apps/ignite/home/ignite/log/gclog%t.log:time,level,tags:filecount=10,filesize=50M -Dsolvatio.home=/opt/apps/ignite/home/ignite -Dworking.dir=/opt/apps/ignite/home/ignite/data -Dnodes=10.53.42.54:47500..47509,10.53.42.55:47500..47509,10.53.42.62:47500..47509 -Dinflux.srv=http://10.53.36.233:8086 -Dinflux.db=solvatio -Dinflux.user= -Dinflux.password= -Dinflux.node=pvlasolvatiodb04_ignite_node -DlocalHost=10.53.42.62 -DcommunicationSpi.localPort=47000 -DcommunicationSpi.localPortRange=100 -DdiscoverySpi.localPort=47500 -DdiscoverySpi.localPortRange=100 -DoffHeapSize=10 -Dfile.encoding=UTF-8 -DIGNITE_SUCCESS_FILE=/opt/apps/ignite/apps/ignite/work/ignite_success_d418928f-fad7-45d9-9998-393342926289 -DIGNITE_HOME=/opt/apps/ignite/apps/ignite -DIGNITE_PROG_NAME=/opt/apps/ignite/apps/ignite/bin/ignite.sh -cp /opt/apps/ignite/apps/ignite/libs/*:/opt/apps/ignite/apps/ignite/libs/ignite-control-utility/*:/opt/apps/ignite/apps/ignite/libs/ignite-indexing/*:/opt/apps/ignite/apps/ignite/libs/ignite-spring/*:/opt/apps/ignite/apps/ignite/libs/licenses/* org.apache.ignite.startup.cmdline.CommandLineStartup /opt/apps/ignite/apps/ignite/config/production-config.xml
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIODB04.OTE.GR' - Output:
+
+● ignite.service - Apache Ignite Service
+   Loaded: loaded (/etc/systemd/system/ignite.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2025-07-15 23:16:39 EEST; 1 months 25 days ago
+ Main PID: 14584 (start-ignite.sh)
+    Tasks: 162 (limit: 203826)
+   Memory: 26.7G
+   CGroup: /system.slice/ignite.service
+           ├─14584 /bin/bash /opt/apps/ignite/apps/ignite/start-ignite.sh
+           ├─14739 bash /opt/apps/ignite/apps/ignite/bin/ignite.sh /opt/apps/ignite/apps/ignite/config/production-config.xml
+           └─23531 /opt/java-21-openjdk-21.0.5.0.11-1.portable.jdk.x86_64/bin/java -DIGNITE_QUIET=false --add-opens=java.base/jdk.internal.access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --add-opens=java.base/sun.security.ssl=ALL-UNNAMED --add-opens=java.base/sun.security.x509=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED -DIGNITE_TO_STRING_INCLUDE_SENSITIVE=false -DIGNITE_UPDATE_NOTIFIER=false -Dlogback.configurationFile=/opt/apps/ignite/home/ignite/logback.xml -Djava.net.preferIPv4Stack=true -Xms8g -Xmx8g -server -XX:+AlwaysPreTouch -XX:+ScavengeBeforeFullGC -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:MaxMetaspaceSize=256m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apps/ignite/home/ignite -Xlog:gc*,safepoint:/opt/apps/ignite/home/ignite/log/gclog%t.log:time,level,tags:filecount=10,filesize=50M -Dsolvatio.home=/opt/apps/ignite/home/ignite -Dworking.dir=/opt/apps/ignite/home/ignite/data -Dnodes=10.53.42.54:47500..47509,10.53.42.55:47500..47509,10.53.42.62:47500..47509 -Dinflux.srv=http://10.53.36.233:8086 -Dinflux.db=solvatio -Dinflux.user= -Dinflux.password= -Dinflux.node=pvlasolvatiodb04_ignite_node -DlocalHost=10.53.42.62 -DcommunicationSpi.localPort=47000 -DcommunicationSpi.localPortRange=100 -DdiscoverySpi.localPort=47500 -DdiscoverySpi.localPortRange=100 -DoffHeapSize=10 -Dfile.encoding=UTF-8 -DIGNITE_SUCCESS_FILE=/opt/apps/ignite/apps/ignite/work/ignite_success_d418928f-fad7-45d9-9998-393342926289 -DIGNITE_HOME=/opt/apps/ignite/apps/ignite -DIGNITE_PROG_NAME=/opt/apps/ignite/apps/ignite/bin/ignite.sh -cp /opt/apps/ignite/apps/ignite/libs/*:/opt/apps/ignite/apps/ignite/libs/ignite-control-utility/*:/opt/apps/ignite/apps/ignite/libs/ignite-indexing/*:/opt/apps/ignite/apps/ignite/libs/ignite-spring/*:/opt/apps/ignite/apps/ignite/libs/licenses/* org.apache.ignite.startup.cmdline.CommandLineStartup /opt/apps/ignite/apps/ignite/config/production-config.xml
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22832 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIODB04.OTE.GR - Exec: "sudo su - ignite -c  '/home/ignite/IT_SCRIPTS/check_ignite_cluster.sh'") ((COMMAND) - Server: PVLASOLVATIODB04.OTE.GR - Exec: "sudo su - ignite -c  '/home/ignite/IT_SCRIPTS/check_ignite_cluster.sh'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIODB04.OTE.GR, source:"sudo su - ignite -c  '/home/ignite/IT_SCRIPTS/check_ignite_cluster.sh'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - ignite -c  '/home/ignite/IT_SCRIPTS/check_ignite_cluster.sh'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-R7yy9hvaq4Jq/agent.22881
+SSH_AGENT_PID=22883
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_11423349409902165189.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_11423349409902165189.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIODB04.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - ignite -c  '/home/ignite/IT_SCRIPTS/check_ignite_cluster.sh'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIODB04.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - ignite -c  '\''/home/ignite/IT_SCRIPTS/check_ignite_cluster.sh'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIODB04.OTE.GR | CHANGED | rc=0 >>
+3 nodes are in cluster
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIODB04.OTE.GR' - Output:
+
+3 nodes are in cluster
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22883 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { ((COMMAND) - Server: PVLASOLVATIOAPP03.OTE.GR - Exec: "sudo su - solvatio -c  '/opt/apps/solvatio/IT_SCRIPTS/logs_status_nodemanager.sh'") ((COMMAND) - Server: PVLASOLVATIOAPP03.OTE.GR - Exec: "sudo su - solvatio -c  '/opt/apps/solvatio/IT_SCRIPTS/logs_status_nodemanager.sh'")
+[Pipeline] echo
+ansibleCMD: ([credentialsId:appsup01, serverName:PVLASOLVATIOAPP03.OTE.GR, source:"sudo su - solvatio -c  '/opt/apps/solvatio/IT_SCRIPTS/logs_status_nodemanager.sh'"])
+[Pipeline] echo
+Target Server Size: 1
+[Pipeline] echo
+"sudo su - solvatio -c  '/opt/apps/solvatio/IT_SCRIPTS/logs_status_nodemanager.sh'"
+[Pipeline] echo
+doWinOp: false
+[Pipeline] sshagent
+[ssh-agent] Using credentials appsup01 (appsup01)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-1ZqV09Yr7S7d/agent.22932
+SSH_AGENT_PID=22934
+Running ssh-add (command line suppressed)
+Identity added: /app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_6110524677206657550.key (/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging@tmp/private_key_6110524677206657550.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] echo
+ansible command: source /app/ansible/bin/activate; ansible all -i 'PVLASOLVATIOAPP03.OTE.GR,' -f 1 -u appsup01  -m command -a "sudo su - solvatio -c  '/opt/apps/solvatio/IT_SCRIPTS/logs_status_nodemanager.sh'"
+[Pipeline] sh
++ source /app/ansible/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/app/ansible
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ PATH=/app/ansible/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' 'x(ansible) ' '!=' x ']'
+++ PS1='(ansible) '
+++ export PS1
+++ '[' -n /usr/bin/sh -o -n '' ']'
+++ hash -r
++ ansible all -i PVLASOLVATIOAPP03.OTE.GR, -f 1 -u appsup01 -m command -a 'sudo su - solvatio -c  '\''/opt/apps/solvatio/IT_SCRIPTS/logs_status_nodemanager.sh'\'''
+[WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+[Pipeline] echo
+ansible output: PVLASOLVATIOAPP03.OTE.GR | CHANGED | rc=0 >>
+Exits with: 0
+[Pipeline] echo
+********************************************
+SUCCESS on server 'PVLASOLVATIOAPP03.OTE.GR' - Output:
+
+Exits with: 0
+
+********************************************
+Error:
+null
+********************************************
+			
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 22934 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] sh
++ rm -rf '/app/jenkins/workspace/ApplicationSupport/Test pipeline with logging/net-repo-lib'
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+REST API
+Jenkins 2.440.2
