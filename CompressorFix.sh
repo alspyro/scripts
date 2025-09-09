@@ -1,12 +1,10 @@
-!!!!!!/COS_DWH/CDR/FILES/IPMS2/data/uncompress.sh!!!!!!!!!!
-
 #!/bin/bash
 
 # Debugging: Log the original input path
 echo "Original file path: $1" >> /tmp/uncompress_debug.log
 
 # Define the specific affected directory
-AFFECTED_DIR="/COS_DWH/Applications/scheduler/logfiles"
+AFFECTED_DIR="dir/logfiles"
 
 # Check if the file path starts with the affected directory
 if [[ "$1" == $AFFECTED_DIR//* ]]; then
@@ -27,7 +25,7 @@ echo "Final file path used: $FILE_PATH" >> /tmp/uncompress_debug.log
 #!/bin/bash
 echo "Original file path: $1" >> /tmp/uncompress_debug.log
 
-AFFECTED_DIR="/COS_DWH/Applications/scheduler/logfiles"
+AFFECTED_DIR="dir/logfiles"
 
 if [[ "$1" == $AFFECTED_DIR//* ]]; then
     
