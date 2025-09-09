@@ -6,7 +6,7 @@ Const YesNo = 4
 Const Yes = 6
 Const No = 7
 
-WWindowTitle = "Script προετοιμασίας αρχείου κυκλωμάτων από Δελφούς για MIS"
+WWindowTitle = "Title"
 
 WJobCompleted = False
 
@@ -45,9 +45,9 @@ And WMonth <> "09" And WMonth <> "10" And WMonth <> "11" And WMonth <> "12" Then
   Call CloseAllAndExit
 End If
 
-' Get OTENET Geneva database authentication info
+' Get XXxxX database authentication info
 
-WDBAuthStr = InputBox ("Δώστε login info για τη database των Δελφών [username/password@dbalias]", WWindowTitle, "mis/ianouarios_1234@DELPHI_PROD.WORLD")  ' 3rd parameter is default value
+WDBAuthStr = InputBox ("Δώστε login info για τη database [username/password@dbalias]", WWindowTitle)  ' 3rd parameter is default value
 
 WNum1 = InStr (WDBAuthStr, "/")
 WNum2 = InStr (WDBAuthStr, "@")
