@@ -1,0 +1,51 @@
+#!/bin/bash
+
+db_connect=$(sh /mzcosmo/.asEncryptedData/getconstr.sh COSTC2P COS_OPER_OWNER)
+export ORACLE_HOME=/COSTC2P/oracle/app/product/19c/dbhome_1
+export PATH=$ORACLE_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+export SQLPLUS
+
+datetime=$(date +%Y%m%d%H%M)
+date_mail=$(date +%d/%m/%Y)
+time_mail=$(date +%H:%M)
+
+FILEPATH="/cdr/COS/work/IN/collected/EPOS/REQ_REQUEST_CHANGE_RATEPLAN/CCMS_RATEPLAN_CHANGES*.csv"
+TO_EMAIL="alspyropou1@ote.gr"
+LOGFILE="/mzcosmo/Monitoring/IT_SCRIPTS/LOG/CCMS_RATEPLAN_CHANGES_zero_size_file_${datetime}.log"
+SUBJECT="CCMS_RATEPLAN_CHANGES zero size file"
+
+BODY="Dear all,
+
+Please be informed that the CCMS_RATEPLAN_CHANGES file is zero-size.
+
+Detected on: ${date_mail} at ${time_mail}
+
+IT Application Support
+
+Note:
+-----------
+The current e-mail is produced automatically by the Mediation Application Support Team monitoring mechanism.
+For any further clarification please communicate with Application Support Section."
+
+SQL_QUERY="SELECT COUNT(*) FROM coll_audit WHERE WF_NAME LIKE '%CCMS_RATEPLAN_CHANGES%' AND TRUNC(timestamp_in) = TRUNC(SYSDATE) AND filesize = 0;"
+
+# Execute SQL and capture count
+COUNT=$(sqlplus -s "$db_connect" <<EOF
+SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF
+$SQL_QUERY
+EXIT;
+EOF
+)
+
+# Trim whitespace from COUNT
+COUNT=$(echo "$COUNT" | xargs)
+
+if [[ "$COUNT" -eq 1 ]]; then
+    echo "$BODY" | mail -s "$SUBJECT" "$TO_EMAIL"
+    echo "[$datetime] Email sent successfully" >> "$LOGFILE"
+else
+    echo "[$datetime] No zero-size file detected" >> "$LOGFILE"
+fi
+
+exit 0;
