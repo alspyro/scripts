@@ -1,6 +1,6 @@
 #!/bin/bash
 
-db_connect=$(sh /mzcosmo/.asEncryptedData/getconstr.sh COSTC2P COS_OPER_OWNER)
+db_connect=$(sh /.asEncryptedData/getconstr.sh )
 export ORACLE_HOME=/COSTC2P/oracle/app/product/19c/dbhome_1
 export PATH=$ORACLE_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
@@ -10,14 +10,14 @@ datetime=$(date +%Y%m%d%H%M)
 date_mail=$(date +%d/%m/%Y)
 time_mail=$(date +%H:%M)
 
-FILEPATH="/cdr/COS/work/IN/collected/EPOS/REQ_REQUEST"
-TO_EMAIL="alspyropou1@ote.gr"
-LOGFILE="/mzcosmo/Monitoring/IT_SCRIPTS/LOG/REQ_REQUEST_zero_size_file_${datetime}.log"
+FILEPATH="/dir"
+TO_EMAIL="email"
+LOGFILE="/dir_${datetime}.log"
 SUBJECT="REQ_REQUEST zero size file"
 
 BODY="Dear all,
 
-Please be informed that the EPOS REQ_REQUEST file is zero-size.
+Please be informed that the REQ_REQUEST file is zero-size.
 
 Detected on: ${date_mail} at ${time_mail}
 
