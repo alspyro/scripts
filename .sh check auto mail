@@ -1,6 +1,6 @@
 #!/bin/bash
 
-db_connect=$(sh /mzcosmo/.asEncryptedData/getconstr.sh COSTC2P COS_OPER_OWNER)
+db_connect=$(sh /mzcosmo/.asEncryptedData/getconstr.sh XXX XXXX)
 export ORACLE_HOME=/COSTC2P/oracle/app/product/19c/dbhome_1
 export PATH=$ORACLE_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
@@ -10,14 +10,14 @@ datetime=$(date +%Y%m%d%H%M)
 date_mail=$(date +%d/%m/%Y)
 time_mail=$(date +%H:%M)
 
-FILEPATH="/cdr/COS/work/IN/collected/EPOS/REQ_REQUEST_CHANGE_RATEPLAN/CCMS_RATEPLAN_CHANGES*.csv"
-TO_EMAIL="alspyropou1@ote.gr"
-LOGFILE="/mzcosmo/Monitoring/IT_SCRIPTS/LOG/CCMS_RATEPLAN_CHANGES_zero_size_file_${datetime}.log"
-SUBJECT="CCMS_RATEPLAN_CHANGES zero size file"
+FILEPATH="xxx*.csv"
+TO_EMAIL="xxx"
+LOGFILE="/xxx.log"
+SUBJECT="xfile zero size file"
 
 BODY="Dear all,
 
-Please be informed that the CCMS_RATEPLAN_CHANGES file is zero-size.
+Please be informed that the xfile file is zero-size.
 
 Detected on: ${date_mail} at ${time_mail}
 
@@ -25,7 +25,7 @@ IT Application Support
 
 Note:
 -----------
-The current e-mail is produced automatically by the Mediation Application Support Team monitoring mechanism.
+The current e-mail is produced automatically by the xx Application Support Team monitoring mechanism.
 For any further clarification please communicate with Application Support Section."
 
 SQL_QUERY="SELECT COUNT(*) FROM coll_audit WHERE WF_NAME LIKE '%CCMS_RATEPLAN_CHANGES%' AND TRUNC(timestamp_in) = TRUNC(SYSDATE) AND filesize = 0;"
