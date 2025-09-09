@@ -1,1 +1,141 @@
+@Library('ote-shared-pa') _
+import com.arhsdev.oteda.Tools
+import java.util.Date
+import java.util.Calendar
+import java.sql.Timestamp
+
+node('agent1') {
+    // properties(
+    //     [disableConcurrentBuilds()]
+    // )   
+
+         echo "Fetch shared lib"
+    
+    def Tools pipelineRuntime = new Tools(this)
+    String patchCycleId ="";
+    int pipelineRuntimeId = 0;
+    try {
+        def Tools tools = new Tools(this)    
+        def Tools verifyStepLog = new Tools(this)     
+        checkout scm
+        
+        List planSteps = null
+        
+        stage("Pipeline Preparation") {
+            String pipelineDir = "$JENKINS_HOME/releaseResults/$JOB_NAME"
+
+            input_file = "$env.INPUT_FILE".substring("$env.INPUT_FILE".lastIndexOf("/")+1);
+            echo "The plan is : ${input_file}"
+            sh "rm -rf '$pipelineDir/'"
+            sh "mkdir -p '$pipelineDir'/"
+
+            env.artifactDir = "$pipelineDir"
+        
+    
+            // def inputParams
+            
+            
+            // int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+            // List yearsChoice = []
+
+            // for(int i=0;i<=10;i++){
+            //     yearsChoice.add("${currentYear-i}") 
+            // }
+
+            // def globalConfig = util.readConfig()
+
+            // List environments = []
+            // def envKeySet = globalConfig.environments.keySet();
+            
+            // for(String evnDescr in envKeySet){
+            //     environments.push(evnDescr);
+            // }
+            // if(environments.contains("Production")){
+            //     environments.remove("Production")
+            //     environments.push("Production")
+            // }
+        def globalConfig = util.readConfig()
+
+        def cause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+        def username = "${cause.userName}"
+        String initiatorUsername = username.replace('[', '').replace(']', '');
+
+        String jobName = "$JOB_NAME";
+        String buildString = "$BUILD_NUMBER";
+        patchCycleId = "$PATCH_CYCLE";
+        String pipelineType = "$PIPELINE_TYPE";
+        int buildNum = buildString.toInteger()
+
+        pipelineRuntime = new Tools(initiatorUsername, jobName, buildNum, patchCycleId, pipelineType, "Running")
+
+        pipelineRuntimeId = util.startPipelineLog(pipelineRuntime)
+
+        planSteps = util.retrievePlan(artifactDir)
+
+        String excelName = "${input_file}"
+
+        String excelName1 = excelName.indexOf("_")
+        int buildNum2 = excelName1.toInteger()
+        String excelIdnew= excelName.substring(0,buildNum2)
+        int excelId = excelIdnew.toInteger()
+
+        finalExcelName = excelName.substring(0, excelName.length()-4)
+
+        verifyStepLog =new Tools(excelId,finalExcelName, 0 , patchCycleId , 1 , "Running", initiatorUsername, pipelineRuntimeId, "Validation","", "","Pipeline Preparation", "")
+        util.startStepLog(verifyStepLog)
+
+        util.verifyPlanSteps(planSteps,verifyStepLog)
+
+        util.endStepLog(verifyStepLog,"Successful")
+
+        env.doComplete = false
+
+        def hasComplete = util.hasComplete(planSteps);
+            if(hasComplete){
+                def getCompletedChoice = input (
+                    message: "Do you wish to execute steps that have already been completed?",
+                    parameters: [
+                        choice(name: 'doComplete', choices: ['Yes','No'], description: 'Execute Completed Steps')
+                    ]
+                )
+                env.doComplete = getCompletedChoice=='Yes'
+            }
+        }
+        
+        // util.prepareUSER(planSteps)
+        
+        try{
+            util.runStages(planSteps, pipelineRuntimeId , patchCycleId)
+            util.endPipelineLog(pipelineRuntime , "Successful")
+        }catch(org.jenkinsci.plugins.workflow.steps.FlowInterruptedException ex){
+            throw ex;
+        }catch (Exception e) {
+            throw e;
+        }finally{
+            // INPUT_FILE = "$env.INPUT_FILE"
+            // input_file = INPUT_FILE.substring(INPUT_FILE.lastIndexOf("/")+1);
+            // util.saveExcelData("$env.artifactDir/$input_file", planSteps)
+            // String logDir = "/opt/jenkins/home/logs/executions/${env.JOB_NAME}/${env.BUILD_NUMBER}"
+            // sh "mkdir -p \"$logDir\""
+            // // sh "cp '$env.artifactDir/plan.xlsx' '$logDir/'"
+            // // String planUrl = "${util.getBaseUrl()}logs/executions/${env.JOB_NAME}/${env.BUILD_NUMBER}/plan.xlsx".replace(" ","%20")
+            // // echo 'Plan with log:'
+            // // echo planUrl
+            
+        }
+        
+           
+    }catch(org.jenkinsci.plugins.workflow.steps.FlowInterruptedException ex){
+        util.endPipelineLog(pipelineRuntime , "Aborted")
+        throw ex;
+    } catch (Exception e) {
+        util.endPipelineLog(pipelineRuntime , "Failure")
+        throw e;
+    } finally{
+        util.cleanNetRepo();
+    }
+}
+
+
+
 
