@@ -200,17 +200,8 @@ if __name__ == "__main__":
     else:
         print("Login failed for Bob")
 
-🔎 What this example shows
 
-Password security: Uses hashlib.pbkdf2_hmac with salt (instead of storing plain passwords).
-
-Audit logging: Every login attempt (success/failure) is logged with timestamp → required in government systems for traceability.
-
-Safe comparisons: Uses hmac.compare_digest to prevent timing attacks.
-
-Extendability: Could integrate MFA (e.g., OTP) or token-based sessions.
-
-Audit log file (audit.log) would look like this:
+log example :
 
 2025-08-27T14:12:03.456Z | user=alice | action=LOGIN | status=SUCCESS
 2025-08-27T14:12:10.789Z | user=bob | action=LOGIN | status=FAILURE
