@@ -1,0 +1,219 @@
+' Define Constants / Variables
+
+Const ForReading = 1
+Const OKOnly = 0
+Const YesNo = 4
+Const Yes = 6
+Const No = 7
+
+WWindowTitle = "Script προετοιμασίας αρχείου κυκλωμάτων από Δελφούς για MIS"
+
+WJobCompleted = False
+
+' Dialog for user to enter year. If value entered is not valid then exit
+
+WYear = InputBox ("Δώστε το έτος [YYYY]", WWindowTitle, String (4 - Len (Year (Date - 15)), "0") & Year (Date - 15))  ' 3rd parameter is default value
+
+If WYear = "" Then
+  Resp1 = MsgBox ("Δεν δώσατε τιμή για έτος. Έξοδος από το πρόγραμμα.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+If Not IsNumeric (WYear) Then
+  Resp1 = MsgBox ("Λανθασμένη τιμή για έτος. Έξοδος από το πρόγραμμα.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+If WYear < 2004 Or WYear > 2059 Then
+  Resp1 = MsgBox ("Λανθασμένη τιμή για έτος. Έξοδος από το πρόγραμμα.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+' Dialog for user to enter month. If value entered is not valid then exit
+
+WMonth = InputBox ("Δώστε το μήνα [ΜΜ]", WWindowTitle, String (2 - Len (Month (Date - 15)), "0") & Month (Date - 15))  ' 3rd parameter is default value
+
+If IsEmpty (WMonth) Then
+  Resp1 = MsgBox ("Δεν δώσατε τιμή για μήνα. Έξοδος από το πρόγραμμα.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+If  WMonth <> "01" And WMonth <> "02" And WMonth <> "03" And WMonth <> "04" _
+And WMonth <> "05" And WMonth <> "06" And WMonth <> "07" And WMonth <> "08" _
+And WMonth <> "09" And WMonth <> "10" And WMonth <> "11" And WMonth <> "12" Then
+  Resp1 = MsgBox ("Λανθασμένη τιμή για μήνα. Έξοδος από το πρόγραμμα.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+' Get OTENET Geneva database authentication info
+
+WDBAuthStr = InputBox ("Δώστε login info για τη database των Δελφών [username/password@dbalias]", WWindowTitle, "mis/ianouarios_1234@DELPHI_PROD.WORLD")  ' 3rd parameter is default value
+
+WNum1 = InStr (WDBAuthStr, "/")
+WNum2 = InStr (WDBAuthStr, "@")
+
+' Next 3 lines: Override NLS_LANG setting of local Oracle client
+Set objShell = WScript.CreateObject ("WScript.Shell")
+Set objEnv = objShell.Environment ("PROCESS")
+objEnv.Item ("NLS_LANG") = "AMERICAN_AMERICA.EL8MSWIN1253"
+
+If WNum1 <= 0 Or WNum2 <= 0 Or WNum2 < WNum1 Then
+  Resp1 = MsgBox ("Η μορφή του login info που δώσατε δεν είναι σωστή.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+WDBAlias = Mid (WDBAuthStr, WNum2 + 1)
+WUsername = Left (WDBAuthStr, WNum1 - 1)
+WPassword = Mid (WDBAuthStr, WNum1 + 1, WNum2 - WNum1 - 1)
+
+If IsEmpty (WDBAlias) Or IsEmpty (WUsername) Or IsEmpty (WPassword) Then
+  Resp1 = MsgBox ("Η μορφή του login info που δώσατε δεν είναι σωστή.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+' Create and open database connection
+
+Set Conn1 = CreateObject ("ADODB.Connection")
+Set RecSet1 = CreateObject ("ADODB.Recordset")
+
+ConnStr1 = "DRIVER={Microsoft ODBC for Oracle};" & _
+           "SERVER=" & WDBAlias & ";" & _
+           "User ID=" & WUsername & ";" & _
+           "Password=" & WPassword & ";"
+
+Conn1.Open ConnStr1
+
+' All checks ok. Show info to the user and ask for confirmation
+
+OutputFileName = "Delphi_detail_" & WYear & "_" & WMonth & ".txt"
+
+Resp1 = MsgBox ("Δώσατε έτος " & WYear & " και μήνα " & WMonth & ". " & _
+                "Θα δημιουργηθεί το αρχείο " & OutputFileName & "." & VbCrLf & _
+                VbCrLf & _
+                "Η διαδικασία δημιουργίας του αρχείου θα χρειαστεί λίγο χρόνο." & VbCrLf & _
+                VbCrLf & _
+                "Να αρχίσει η διαδικασία?", _
+                YesNo, WWindowTitle)
+
+If Resp1 = No Then
+  Resp1 = MsgBox ("Έξοδος από το πρόγραμμα.", OKOnly, WWindowTitle)
+  Call CloseAllAndExit
+End If
+
+' Create output file
+
+Set objFSO = CreateObject ("Scripting.FileSystemObject")
+
+CurrentDir = objFSO.GetAbsolutePathName (".")
+OutputFileDir = CurrentDir
+OutputFileFullName = objFSO.BuildPath (OutputFileDir, OutputFileName)
+
+Set objoutFile = objFSO.CreateTextFile (OutputFileFullName, True, False) ' arg2: true = overwrite, false = do not overwrite
+                                                                         ' arg3: true = save as Unicode, false = save as ASCII
+
+' Write header
+
+WScript_file = objFSO.BuildPath (CurrentDir, "header_template_delphi.txt")
+Set ObjInFile = ObjFSO.OpenTextFile (WScript_file, ForReading)
+StrHdr = ObjInFile.ReadAll
+
+objOutFile.WriteLine RTrim (StrHdr)
+
+' Write detail lines
+
+WScript_file = objFSO.BuildPath (CurrentDir, "query_template_delphi.sql")
+Set ObjInFile = ObjFSO.OpenTextFile (WScript_file, ForReading)
+SQLQuery1 = ObjInFile.ReadAll
+SQLQuery1 = FRemoveSQLComments (SQLQuery1)
+
+Set RecSet1 = Conn1.Execute (SQLQuery1)
+
+While Not RecSet1.EOF
+  StrL = RecSet1.Fields ("str1").Value
+  objOutFile.WriteLine RTrim (StrL)
+  RecSet1.MoveNext
+Wend
+
+objOutFile.Close
+
+WJobCompleted = True
+
+Call CloseAllAndExit
+
+Function FRemoveSQLComments (WWStr1)
+
+  Set objRegExp = New RegExp
+  With objRegExp
+    .Pattern = "--.*\r"
+    .Global = True
+    .IgnoreCase = False
+  End With
+  
+  WWStr1 = objRegExp.replace (WWStr1, "") 
+  
+  Set objRegExp = New RegExp
+  With objRegExp
+    .Pattern = "(/\*)(^\+)(.|\n)*(\*/)"
+    .Global = True
+    .IgnoreCase = False
+  End With
+  
+  WWStr1 = objRegExp.replace (WWStr1, "") 
+  
+  Set objRegExp = Nothing
+
+  FRemoveSQLComments = WWStr1
+
+End Function
+
+Sub CloseAllAndExit
+  On Error Resume Next
+  If WJobCompleted Then
+    Resp1 = MsgBox ("Δημιουργήθηκε το αρχείο " & OutputFileFullName, OKOnly, WWindowTitle)
+  End If
+  Conn1.Close
+  objOutFile.Close
+  Set Conn1 = Nothing
+  Set RecSet1 = Nothing
+  Wscript.Quit
+End Sub
+
+
+customer_ref;
+customer_name_gr;
+afm;
+city;
+account_num;
+dealer_account;
+product_seq;
+product_id;
+product_name;
+package_seq;
+package_id;
+package_name;
+tariff_id;
+tariff_name;
+service_speed;
+product_status;
+pending_date;
+activation_date;
+termination_date;
+dealer_id;
+dealer_name;
+upgrade_of;
+renewal_of;
+upgradeto_prd_id;
+upgradeto_trf_id;
+upgradeto_trf_name;
+upgradeto_fml_id;
+upgradeto_fml_name;
+family_name;product_family_id;
+connectionyear;
+connectionid;
+PRODUCT_QUANTITY;
+product_label;
+UPGRADE_TO;
+RENEWAL_TO
+
+
+Name, Execution Settings, HDFS_Archive, Host, Username, Private Key, Port, Directory, Filename, Profile, Profile, Directory, Command, Arguments, Directory
