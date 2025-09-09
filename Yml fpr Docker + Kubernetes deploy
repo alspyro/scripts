@@ -1,0 +1,46 @@
+version: "1"
+
+agent:
+  label: "docker"
+
+environment:
+  REGISTRY: "your-dockerhub-username"
+  IMAGE_NAME: "your-app"
+  KUBE_CONFIG: "/home/jenkins/.kube/config"   # path inside Jenkins agent
+
+stages:
+  - name: Checkout
+    steps:
+      - checkout: "https://github.com/your-org/your-repo.git"
+        branch: "main"
+
+  - name: Build Docker Image
+    steps:
+      - sh: |
+          echo "Building Docker image..."
+          docker build -t $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} .
+
+  - name: Push Docker Image
+    steps:
+      - sh: |
+          echo "Logging in to Docker registry..."
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          echo "Pushing Docker image..."
+          docker push $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER}
+
+  - name: Deploy to Kubernetes
+    steps:
+      - sh: |
+          echo "Setting up Kubernetes context..."
+          export KUBECONFIG=$KUBE_CONFIG
+          echo "Updating deployment..."
+          kubectl set image deployment/$IMAGE_NAME $IMAGE_NAME=$REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} --record
+          kubectl rollout status deployment/$IMAGE_NAME
+
+post:
+  always:
+    - sh: echo "Pipeline finished (success or failure)"
+  success:
+    - sh: echo "Deployment succeeded!"
+  failure:
+    - sh: echo "Deployment failed!"
