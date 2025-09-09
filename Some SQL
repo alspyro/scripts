@@ -1,9 +1,9 @@
-select * from TIME_GAP  where  WF_INSTANCE like '%Interwork%'
+select * from TIME_GAP  where  WF_INSTANCE like '%WF%'
 
-select * from TIME_GAP_ZONES  where  WF_INSTANCE like '%Interwork%'
+select * from TIME_GAP_ZONES  where  WF_INSTANCE like '%WF%'
  
 
-edit TIME_GAP  where  WF_INSTANCE like 'IMS%'
+edit TIME_GAP  where  WF_INSTANCE like 'WF%'
 
 SELECT wf_name, event_description, retries FROM (    SELECT WF_NAME          , MIN(TRANSFER_TIMESTAMP) STARTED         , MAX(TRANSFER_TIMESTAMP) ENDED         , TARGET_HOST         , KAFKA_TOPIC         , SUM(EVENT_COUNT) EVENT_COUNT         , EVENT_DESCRIPTION         , NVL(SUBSTR(FILENAME, DECODE(INSTR(FILENAME, '/')+1, 1, 99999, INSTR(FILENAME, '/')+1), LENGTH(FILENAME)), '0') RETRIES    FROM EVENT_DIST_AUDIT        WHERE TRANSFER_TIMESTAMP >= sysdate -(2/24)    AND WF_NAME in (select wf_name from EVENT_DIST_AUDIT eda where EDA.TRANSFER_TIMESTAMP >= sysdate -(2/24) and EDA.EVENT_DESCRIPTION = 'ERRONEOUS' )    GROUP BY WF_NAME           , NVL(SUBSTR(FILENAME, DECODE(INSTR(FILENAME, '/')+1, 1, 99999, INSTR(FILENAME, '/')+1), LENGTH(FILENAME)), '0')           , TARGET_HOST           , KAFKA_TOPIC           , EVENT_DESCRIPTION    ORDER BY WF_NAME, STARTED, ENDED, RETRIES, TARGET_HOST, KAFKA_TOPIC, EVENT_DESCRIPTION)WHERE RETRIES >= 3 and event_description='ERRONEOUS'
 
@@ -25,23 +25,23 @@ SELECT STARTUP_TIME FROM dba_hist_database_instance ORDER BY startup_time DESC
 
 select distinct machine, schemaname, osuser, program, username
 from   v$session
-where  username='COS_OPER_OWNER'
+where  username=''
 and    machine like '%'
 
 select * from dba_audit_trail
 --SGSN Addresses 
 
-SELECT * FROM mzowner.system_log l
+SELECT * FROM system_log l
 where 1=1
--- id > ((select max(id) FROM mzowner.system_log)-500000)
+-- id > ((select max(id) FROM g)-500000)
 and creation_time>=trunc(sysdate)
 --and creation_time<trunc(sysdate-14)  
-and message like '% SGSN_ADDRESSES lookup table%'
---and message like 'The IP Address [10.22.28.49]%'
+and message like '% %'
+--and message like 'The IP Address []%'
 
 select * from event_dist_audit where WF_NAME like '%DATA%'  order by 4 desc
 
-select * from mzowner.system_log where message like '%Result_Code = [%]%' 
+select * from system_log where message like '%Result_Code = [%]%' 
 
 select distinct(substr(message,instr(message,'Result_Code'),20)) Error, count(*) from  mzowner.system_log where message like '%Result_Code = [%]%' and creation_time >= sysdate -7 group by (substr(message,instr(message,'Result_Code'),20))
 
@@ -50,8 +50,8 @@ select distinct(substr(message,instr(message,'resultCode'),19)) Error, count(*) 
 select distinct(substr(short_message,instr(short_message,'Result_Code'),19)) Error, count(*) from  mzowner.system_log where message like '%Result_Code%[%]%' and creation_time >= sysdate -7 group by (substr(short_message,instr(short_message,'Result_Code'),19))
 
 select *
-from mzowner.system_log
-where wf_instance_name='COS_BM_COMMON.Diameter_WF.Diameter_Proc'
+from .system_log
+where wf_instance_name=''
 and creation_time>=trunc(sysdate)-3
 and substr(substr(short_message,instr(short_message,'resultCode')),15,4)!='5030'
 and substr(substr(short_message,instr(short_message,'resultCode')),15,4)!='5012'
@@ -68,11 +68,6 @@ and message not like 'The IP Address [10.22.28.49]%'
 
 and message not like 'The IP Address [10.35.48.744]%'
 
-
---gia na to exeis kai esy, axreiasto na nai :) ta monadika tilefona   me 4012 
-select distinct (substr(message,instr(message,'3069'),12)) from mzowner.system_log 
-where message like '%resultCode = [4012]%' 
-and creation_time >= sysdate - 180/1440
 
 select count(*) from ( SELECT * FROM mzowner.system_log WHERE creation_time > sysdate - interval '30' minute   AND MESSAGE LIKE '%Error in Diameter - Result_Code = [5012] ErrorMessage%')
 
@@ -98,174 +93,21 @@ select * from Dist_audit where WF_NAME like '%Diameter%' order by 4 desc
 
 SELECT TO_DATE('22/APR/2021') FROM dual
 
---4012 /ora +mera
-select distinct (substr(message,instr(message,'3069'),12)) msisdn, to_char(creation_time,'HH24'),count(*) from mzowner.system_log 
-where message like '%resultCode = [4012]%' 
-and trunc(creation_time) ='21-APR-2021'
-and LENGTH(TRIM(TRANSLATE((substr(message,instr(message,'3069'),12)), ' +-.0123456789', ' '))) is null 
---having count(*) > 2000
-group by (substr(message,instr(message,'3069'),12)) ,to_char(creation_time,'HH24') order by 2 desc
 
-select * from mzowner.system_log where severity_type = 2 and creation_time > sysdate -10/1440 order by 1
-
---5012  /ora +mera
-select  to_char(creation_time,'HH24'),count(*) from mzowner.system_log 
-where message like '%Error in Diameter - Result_Code = [5012] ErrorMessage%' 
-and trunc(creation_time) = '22/APR/2021' 
-group by to_char(creation_time,'HH24') order by 1 desc
-
-select * from mzowner.system_log 
-where message like '%Service_Provider_Id is NULL%' 
-and creation_time >= sysdate -1
-
---Check Flows no 9999
-SELECT distinct d.*, e.WF_INSTANCE
-FROM time_gap d
-JOIN time_gap_zones e ON d.WF_INSTANCE = e.WF_INSTANCE
-join workflow_info p on p.WF_NAME = e.WF_INSTANCE
-WHERE d.alarm = 1
-and E.GAP != 9999 AND d.direction = 0;
-
---Error collection
-select * from COS_COLLECTION_OVERVIEW order by 5 desc
-
-
-select * from dba_users 
-
-select * from COS_COLLECTION_OVERVIEW where flows like '%MSC_RENTI%'
-
-select * from COS_DISTRIBUTION_OVERVIEW where distribution_flows like '%ATYOURSERVICE_GNV%'
-
-select * from TIME_GAP_ZONES where  WF_INSTANCE like '%AtYourService_Mob%'
-
-edit TIME_GAP_ZONES where  WF_INSTANCE like '%MSC_RENTI5%'
-
-select * from TIME_GAP  where  WF_INSTANCE like '%AtYourService_GNV%'
-
-edit TIME_GAP  where  WF_INSTANCE like '%%'
-
-1639541294 / CDGRCCOPRYHT06131 - CDGRCCOURYAM00125
-
-SELECT * FROM MZOWNER.ECS_TXN_INFO_V WHERE TXN_ID = 1639541294
-
-select * from dist_audit where host like '%172.25.3.30%' order by 6 desc
-
-select * from dist_audit where wf_name like '%CCMS_ACE_CONC%' order by 6 desc
-
-select * from event_dist_audit where wf_name like '%RECO_DWH%' order by 4 desc
-
-select * from event_dist_audit where kafka_topic like '%CCMS_CATO_DATA_TRAFFIC_Audit%' order by 4 desc
-
-select * from event_dist_audit where WF_NAME like '%%' and Filename like '%NGINius2BD_DT%' order by 4 desc  
-
-
-select * from proc_in_audit where WF_NAME like '%%' and filename like '%Cdr_2022_06_20__15_00_00%' order by 4 desc
-
-select * from proc_out_audit where filename_in like '%%'
-
-select * from proc_out_audit where wf_name like '%JRNY%' order by 6 desc
-
-select * from proc_in_audit where wf_name like '%Loyalty%' order by 4 desc
-
-select * from dist_audit where wf_name like '%%' 
-and filename_out like '%CFX.cdr.cfx_DUSpecCSren%' and host like ''
-order by 6 desc
-
-select * from coll_audit where WF_NAME like '%EPOS%' order by 4 desc
-
-select * from dist_audit where WF_NAME like '%CNTN_RA_CC%' 
- -and host like '%edge2%'
-  order by 6 desc
-
-select * from proc_in_audit where WF_NAME like '%Billcycle%' order by 4 desc
-
-select * from proc_out_audit where filename like '%user%' order by 4 desc
-
-select * from proc_out_audit where filename like '%CFX%' order by 4 desc
-
-select * from dist_audit where filename_in like 'CFX%' order by 6 desc
-
-
-select * from coll_audit where filename_out like 'CFX%' order by timestamp_in desc
-
-select * from dba_db_links
-
-SELECT * FROM v$version;
-
-select * from dba_objects where object_name like '%FX_REFRESH_CF_FOR_FREE_NUMBERS%'
-
-select * from coll_audit where filename_in like 'Postpaid%'
-
-wf_name like '%LOYALTY_USERS%' order by 6 desc
-
-select * from coll_audit where wf_name like '%MVAS_SMS%' and FILENAME_IN like 'SMSC_DIAMETER%'
---and filename_in like '%CDGRCCOLKACT02004%' 
-order by 6 desc
-
-select * from dist_audit where wf_name like '%CLOUD_TV%' order by 6 desc
-
-select * from dist_audit where wf_name like '%VoiceRetail_WLR_FORTHNET%' order by 6 desc
-
-select * from coll_audit where wf_name like '%VoiceRetail%' order by 6 desc
-
-select * from proc_in_audit where WF_NAME like '%VoiceRetail_WLR_FORTHNET%' order by 4 desc
-
-select * from proc_out_audit where WF_NAME like '%VoiceRetail_WLR_FORTHNET%' order by 4 desc
-
-
-
-select * from dist_audit where HOST LIKE '%ex101.ote.gr%' and FILENAME_IN like 'REL_%_20220903.csv%' order by 6 desc
-
-select * from coll_audit where filename_out like '%ERMOY%' order by 6 desc
-
-select * from coll_audit where filename_in like '%INTERW%' order by 6 desc
-
-select * from coll_audit where WF_NAME like '%BMP%' order by 6 desc
-
-
-
-select * from coll_audit where upper(WF_NAME) like '%OCSCCN_AIR5%' order by 6 desc
-
-select * from dist_audit where upper(WF_NAME) like '%INCS_PRM%' order by 6 desc
-
---TRAFFIC
-select * from coll_audit where WF_NAME like '%%' and  timestamp_in >= sysdate -10/1440 order by 6 desc
-
-select * from proc_in_audit where wf_name like '%BILLCYCLE%' order by 4 desc
-
-select * from proc_out_audit where wf_name like '%BILLCYCLE%' order by 4 desc
-
-and  timestamp >= sysdate -10/1440
-
-select * from dist_audit where WF_NAME like '%%' and  timestamp_in >= sysdate -10/1440 order by 6 desc
-
-select * from event_dist_audit where KAFKA_TOPIC like '%outgoing_v_daily_usage%'  order by 4 desc
-
-select * from coll_audit where WF_NAME like 'CatO_AMC%' and filename_in in ('Run_20210427_032700_01of01.tar','Run_20210427_034500_01of01.tar','Run_20210427_054200_01of01.tar','Run_20210427_032700_01of01.tar','Run_20210427_034500_01of01.tar') order by 6 desc
-
-select * from coll_audit where WF_NAME like 'CatO_AMC%' 
---and filesize = '10240'
- order by 6 desc
- 
- --count by date
-select TO_CHAR(timestamp_in, 'YYYY-MM-DD'), count(filename_in) from dist_audit where WF_NAME like '%OTEIC_DWH_TERM%' group by  TO_CHAR(timestamp_in, 'YYYY-MM-DD')  order by 1 desc
-
-select * from dist_audit where WF_NAME like '%VoiceRetail%' and HOST LIKE 'ex101.ote.gr' order by 6 desc
-
-select * from coll_audit where WF_NAME like '%%' and filename_out like '%EV_22s8a_0890_20230327-154300%'
+select * from coll_audit where WF_NAME like '%%' and filename_out like '%-154300%'
  order by 6 desc
 
-select * from coll_audit where WF_NAME like '%%' and filename_out like '%Postpaid%'  order by 6 desc
+select * from coll_audit where WF_NAME like '%%' and filename_out like '%%'  order by 6 desc
 
-select * from coll_audit where WF_NAME like '%AtYourService%' --
---and filename_in like '%Email-202201180010%'
+select * from coll_audit where WF_NAME like '%%' --
+--and filename_in like '%Email%'
  order by 6 desc
 
-select * from dist_audit where WF_NAME like '%INCS_PRM%' 
---and filename_in like '%20201105114611%'
+select * from dist_audit where WF_NAME like '%%' 
+--and filename_in like '%%'
  order by 6 desc
 
-select * from dist_audit where WF_NAME like '%AtYourService_GNV%'  and filename_out like '%%'
+select * from dist_audit where WF_NAME like '%%'  and filename_out like '%%'
 --and timestamp_in like sysdate  
  order by 6 desc
 
@@ -278,27 +120,7 @@ and filename_in in ('Cosmote_OK_ARCHIVE2020-08-05.18:10:35.27073',
 --count by sysdate
 select WF_NAME ,TO_CHAR(SYSDATE, 'YYYY-MM-DD'),count(*) from coll_audit  where WF_NAME like '%CNTN%'    group by WF_NAME  order by 2 desc
 
-select * from coll_audit where WF_NAME like 'IMS_ERM1%' and filename_in like '%%'  order by 6 desc
 
-select * from coll_audit where WF_NAME like 'IMS%' and filename_in like '%b0159021%'  order by 6 desc
-
-select * from coll_audit where WF_NAME like 'IMS_MEG%' and filename_in like '%%'  order by 6 desc
-
-select * from coll_audit where WF_NAME like 'IMS_ROUTER_MEG%' and filename_in like '%%'  order by 6 desc
-
-select * from coll_audit where WF_NAME like 'IMS_ROUTER_ERM2%' and filename_in like '%%'  order by 6 desc
-
-select * from proc_out_audit where filename_in like '%REL_PLAY_VOD%' order by 4 desc
-
-select * from proc_in_audit where wf_name like 'IMS_ROUTER_Proc%' and filename like '%%'  order by 4 desc
-
-select * from proc_in_audit where wf_name like 'MOBILEIPIC_Proc%' and filename like '%%'  order by 6 desc
-
-select * from proc_out_audit where wf_name like '%IMS_Proc1%' and filename_in  like '%%' order by 4 desc
-
-select * from proc_out_audit where wf_name like '%IMS_ROUTER_Proc%' and filename_in  like '%%' order by 4 desc
-
-select * from proc_out_audit where wf_name like '%MOBILEIPIC_Proc%' and filename_in  like '%%' order by 4 desc
 
 --DIameter Reprocess
 SELECT WF_NAME,
@@ -311,7 +133,7 @@ FROM (
       SELECT WF_NAME, 
              DECODE
                (FILTER_CODE,
-                68, 'DIAMETER_REPROCESS' ) FILTER_CODE,
+                68, '' ) FILTER_CODE,
              TRUNC(TIMESTAMP) FILTER_DATE,
              TIMESTAMP,
              CDR_COUNT
@@ -331,7 +153,7 @@ select * from dist_audit where filename_in like '%NTASRENTIS1B.8390%' order by 6
 --Diameter reproc last 30 mins
 SELECT *
 FROM PROC_FLT_AUDIT P
-WHERE P.WF_NAME LIKE '%Diameter%'
+WHERE P.WF_NAME LIKE '%%'
 AND TIMESTAMP >= sysdate-1
 AND filter_code = 68
 AND filter_code is not null
@@ -376,44 +198,7 @@ group by TO_CHAR(TRANSFER_TIMESTAMP,'YYYY-MM-DD') ,event_description
 order by 1 desc
 
 
---TAPIN TOTAL FILES AND CDRS
-select to_char(trunc(timestamp, 'DD'), 'YYYY/MM/DD') L_DATE,
-substr(wf_name,1,6) NE,
-'TAPIN' TYPE, count(*) FILES, sum(CDR_COUNT) CDRS
-from cos_oper_owner.proc_in_audit
-where wf_name = 'TAP_IN_Proc1'
-and agent_name='fromCollection'
-and trunc(timestamp, 'DD')>=trunc(sysdate-365)
-group by wf_name, trunc(timestamp, 'DD')
-order by 1 asc
---TAPIN TOTAL FILES AND SIZE
-select to_char(trunc(timestamp_in, 'DD'), 'YYYY/MM/DD') L_DATE,
-substr(wf_name,1,6) NE,
-'TAPIN' TYPE, count(*) FILES, sum(FILESIZE) TOTAL_SIZE
-from cos_oper_owner.coll_audit
-where wf_name = 'TAP_IN'
---and agent_name='fromCollection'
-and trunc(timestamp_in, 'DD')>=trunc(sysdate-365)
-group by wf_name, trunc(timestamp_in, 'DD')
-order by 1 asc
-
-select TO_CHAR(TRANSFER_TIMESTAMP,'YYYY-MM-DD'),sum(event_count) from event_dist_audit 
-where wf_name like '%CCMS_ACE_CONC_Audit%'
-and EVENT_DESCRIPTION like '%%'
-group by TO_CHAR(TRANSFER_TIMESTAMP,'YYYY-MM-DD')
-order by 1 desc
-
-select TO_CHAR(TRANSFER_TIMESTAMP,'YYYY-MM-DD'),event_description,
-wf_name,
-sum(event_count) from event_dist_audit 
-where wf_name like '%CCMS_ACE_CONC_Audit%'
--- in ('JRNY_CROSS_REF_MAP_Audit','CONSENT_Audit','SGK_UCM_CLI_Audit','SGK_UCM_MSISDN_Audit')
-and EVENT_DESCRIPTION like '%%'
-group by TO_CHAR(TRANSFER_TIMESTAMP,'YYYY-MM-DD') ,event_description 
-,wf_name
-order by 1 desc
-
-select * from coll_audit where WF_NAME like '%PRP_LOGICA%' and filename_in like '%Cosmote_OK_ARCHIVE2020-08-06.02:00:00.27075%' order by 6 desc
+select * from coll_audit where WF_NAME like '%%' and filename_in like '%%' order by 6 desc
 
 select * from proc_in_audit where 
 --wf_name  like '%%' and 
@@ -480,7 +265,7 @@ group by trunc(L.CREATION_TIME) order by 1 desc
    order by 3 desc
 
 SELECT count(filename) 
-  FROM GENEVA_OVERVIEW
+  FROM X
 WHERE day BETWEEN TO_DATE ('05/07/2020 00:00:00', 'dd/mm/yyyy hh24:mi:ss')
                AND TO_DATE ('05/07/2020 23:59:59', 'dd/mm/yyyy hh24:mi:ss');
 
@@ -490,74 +275,6 @@ WHERE message not like 'An error was encountered during file decoding%'
 and short_message not like 'Message from duplicate UDR node:'
 and message not like '%Trailers in file%'
 and message not like '%Headers in file%'
-and message not like '%mzmon (active), Commandline user logged%'
-and message not like 'al%'
-and message not like '%The pico instance % has disconnected.%'
-and message not like '%The pico instance % has connected.%'
-and message not like '% has aborted%'
-and severity_type not in (0)
-and message not like '%Lost connection to listener. The listener com.digitalroute.event.DefaultEventListener_Detached at %'
-and message not like '%Lost connection to listener. The listener com.digitalroute.ultra.client.UltraClientCache_Detached at %'
-and message not like '%Lost connection to listener. The listener com.digitalroute.configserver.common.OperationStateClientCache_Detached at %'
-and message not like '%The maximum expected time between file processing in % distribution workflow has been exceeded.%'
-and message not like '%The TTSCOF file data is identical with that from a previous transaction.%'
-and message not like '%com.digitalroute.rcp.DRRCPTransportException: No response given for request. Unknown cause. The listener com.digitalroute.event.EventListenerProxy_Detached at %'
-and message not like '%Can not connect to host rapapp on port 22%'
-and message not like '%The pico instance % (desktop) at host % is not reporting in and has therefore been unregistered.'
-and message not like '%The workflow has exceeded the maximum number of canceled batches, causing the workflow to abort.%'
-and message not like '%com.digitalroute.rcp.DRRCPConnectionException: Connection lost. No response given for request. The listener com.digitalroute.event.EventListenerProxy_Detached at % is abandoned.%'
-and message not like '%com.digitalroute.rcp.DRRCPConnectionException: No open connection to gratwrk311.athens.local/%. The listener com.digitalroute.event.EventListenerProxy_Detached at % is abandoned.%'
-and message not like '%Private key authentication for host % failed.%'
-and message not like '%The maximum expected time between file processing in%collection workflow has been exceeded.%'
-and message not like '%The file % has been cancelled and moved to ECS. %'
-and message not like '%CDR recordNumber mismatch: Value expected = 100000000, Value found = 0 (event cdr).%' 
-and message not like '%CDR recordNumber mismatch: Value expected = 1, Value found = 0 (event cdr).%'
-and message not like '%The new batch is a duplicate of an existing batch%'
-and message not like '%The control files must contain the same number of records. File DW0-/TTSCOF00.IMG contain % records and file DW0-/TTTCOF00.IMG contains % records.%'
-and message not like '%At least one TTTCOF record with a future timestamp was found.%' 
-and message not like '%Can not create file /RAP/outputfiles/inputfiles/FILTER_OUT/DR_TMP_DIR/%' 
-and message not like '%com.digitalroute.rcp.DRRCPConnectionException: Connection lost. No response given for request.%'
-and message not like '%Lost connection to listener. The listener com.digitalroute.event.EventListenerProxy_Detached at %is abandoned.%'
-and message not like '%After treatment command /cdr/COS/work/scripts/uncompressZfiles.sh failed, exit code: 1.%'
-and message not like '%Can not connect to host%'
-and message not like '%Failed to open file DW0-/DW0-/TTSCOF00.IMG.%' 
-and message not like '%Failed to read file DW0-/TTSCOF00.IMG.%' 
-and message not like '%Multiple cbax exists and no one matched with lookup%' 
-and message not like 'Host key for host%' 
-and message not like 'SSH key mismatch for host%' 
-and message not like '%delayed cdr(s) in file %' 
-and message not like '%Filename.WF_Instance = Diameter_Audit.%' 
-and message not like '%com.digitalroute.rcp.DRRCPConnectionException: No open connection to%' 
-and message not like '%An error occurred.%Execution time%' 
-and message not like '%MOC # Warning #%# Value out of range or number does not start with a valid country code as listed in E164 %' 
-and message not like '%MTC # Warning #%# Value out of range # callingNumber %' 
-and message not like '%Warning #%# Number not represented in international format and MSISDN not expected in accordanc%' 
-and message not like '%OPERATOR % NOT FOUND IN COMMONNWOPERATORS TABLE.%' 
-and message not like '% delayed cdr(s) in file % to downstream %' 
-and message not like '%SupplServiceEvent # Severe # 101 # Invalid or non transferable Supplementary Service Code and Action code combination present within group # supplServiceUsed%' 
-and message not like '%MOC # Warning %Syntax error and call represents emergency call # calledNumber%' 
-and message not like '%User automatically locked after 3 failed login attempt(s) %' 
-and message not like '%Fatal # % # Value out of range # fileTypeIndicator #%' 
-and message not like '%FATAL TAP VALIDATION ERROR. %' 
-and message not like '%Value out of range%' 
-and message not like '%MOC # Warning # 21 # Value is 0 (zero) # camelInvocationFee #%' 
-and message not like '%Failed to move file /var/opt/BGw/Common/Gen/Cosmote/LookupTables/IPMS%'
-and message not like '%Failed to open file /TTTCOF00.IMG.%'
-and message not like '%Failed to read file /TTSCOF00.IMG.%'
-and message not like '%Failed to open file /TTSCOF00.IMG.%'
-and message not like '%More than one occurrence of group with same Exchange Rate Code where Number Of Decimal Places and/or Exchange Rate are not the same%'
-and message not like '%OPERATOR NOT FOUND IN COMMONNWOPERATORS TABLE%'
-and message not like '% SGSN_ADDRESSES lookup table%'
-and message not like '% SupplServiceEvent # Warning%'
-and message not like '%A ZERO-SIZE file has been received.%TETRA_%'
-and message not like 'The retrieved TTTCOF is invalid or not the same as was stored in previous%'
-and message not like '%Failed to move file /COS_DWH/CDR/homes/bmpadm/UNRATED_TRAFFIC/MSC/%'
-and message not like '%SMS AO-AT catched FROM:COSMOTE TO:300%'
-and message not like '%ERROR% Multiple originating BYE CDR detected, please inform IMS team%'
-and message not like '%MF_SWITCH_INFO database table is empty%'
-and message not like '%Failed to open file /transfer/Email%'
-and trunc(creation_time)>=trunc(sysdate-1)
-order by creation_time desc
 
 
 SELECT * FROM   (         SELECT WF_NAME, FILENAME_OUT, SUM(CDR_COUNT) AS RECORDS_DIST,                (                 SELECT SUM(EVENT_COUNT)                 FROM ( SELECT WF_NAME,                               FILENAME,                               EVENT_COUNT                        FROM   EVENT_DIST_AUDIT                        WHERE      WF_NAME LIKE 'CCMS%'                               AND EVENT_DESCRIPTION = 'OUTBOUND'                               AND TRANSFER_TIMESTAMP >= SYSDATE - INTERVAL '270' MINUTE                               AND TRANSFER_TIMESTAMP <= SYSDATE                               AND NVL(SUBSTR(FILENAME, DECODE(INSTR(FILENAME, '/')+1, 1, 99999, INSTR(FILENAME, '/')+1), LENGTH(FILENAME)), '0') = 0                      ) B                 WHERE  B.FILENAME = A.FILENAME_OUT                 GROUP BY WF_NAME, FILENAME                ) RECORDS_OUTBOUND,                 (                 SELECT SUM(EVENT_COUNT)                 FROM ( SELECT WF_NAME,                               CASE WHEN                               SUBSTR(FILENAME, 0, INSTR(FILENAME, '/')-1) IS NOT NULL                               THEN SUBSTR(FILENAME, 0, INSTR(FILENAME, '/')-1)                               ELSE FILENAME                               END FILENAME,                               EVENT_COUNT                        FROM   EVENT_DIST_AUDIT                        WHERE      WF_NAME LIKE 'CCMS%'                               AND EVENT_DESCRIPTION = 'ACKNOWLEDGED'                               AND TRANSFER_TIMESTAMP >= SYSDATE - INTERVAL '270' MINUTE                               AND TRANSFER_TIMESTAMP <= SYSDATE                      ) B                 WHERE  B.FILENAME = A.FILENAME_OUT                 GROUP BY WF_NAME, FILENAME                ) RECORDS_ACKNOWLEDGED         FROM  PROC_OUT_AUDIT A         WHERE     WF_NAME IN ( 'CONCENTRATED', 'DEACTIVATION', 'DEL_DEACTIVATION', 'RATE_PLAN_CHANGE', 'SMART_CAMP_REPORTS',                                'SMART_CAMP_REWARDS', 'DATA_SUBSCRIPTION', 'DATA_TRAFFIC', 'OCS_CCN', 'POP_SMS_VOICE'                             )               AND TIMESTAMP >= SYSDATE - INTERVAL '270' MINUTE               AND TIMESTAMP <= SYSDATE - INTERVAL '30' MINUTE         GROUP BY WF_NAME, FILENAME_OUT        ) WHERE  RECORDS_OUTBOUND != NVL(RECORDS_ACKNOWLEDGED,0)
@@ -613,7 +330,7 @@ SELECT * FROM   (         SELECT WF_NAME, FILENAME_OUT, SUM(CDR_COUNT) AS RECORD
 
 
 
---MISSING MZ MSC FILES CHECK
+--MISSING FILES CHECK
 
 select substr(filenamein,5,instr(filenamein,':')-5)||'.'||substr(filenamein,instr(filenamein,':')+3,4) filename,timestampin,cdrin,cdrhdr,cdrfo,cdrin-cdrhdr-cdrfo from (
 select inputfile.filenamein,inputfile.timestampin,inputfile.cdrin,hdrfile.cdrhdr  from
@@ -637,30 +354,6 @@ and substr(filenamein,5,instr(filenamein,':')-5)||'.'||substr(filenamein,instr(f
 order by 1 desc
 
 
-ALEXADRAS01A.0651
-ACROPOLIS02A.1305
-
-select substr(filenamein,5,instr(filenamein,':')-5)||'.'||substr(filenamein,instr(filenamein,':')+3,4) filename,timestampin,cdrin,cdrhdr,cdrfo,cdrin-cdrhdr-cdrfo from (
-select inputfile.filenamein,inputfile.timestampin,inputfile.cdrin,hdrfile.cdrhdr  from
-(
-select substr(filename,1,instr(filename,':',1,2)-1) filenamein, trunc(timestamp) timestampin,cdr_count cdrin
-from PROC_IN_AUDIT pin
-where agent_name='fromPreProc' and substr(wf_name,1,9) ='MSC_Proc1'
-and timestamp >=sysdate - 10 and timestamp <=sysdate - 1
-) inputfile join (
-select substr(filename,1,instr(filename,':',1,2)-1) filenamehdr , trunc(timestamp)  timestamphdr,cdr_count cdrhdr ,  hdr.* from PROC_FLT_AUDIT hdr
-where filter_code=5 and substr(wf_name,1,9) ='MSC_Proc1'
-and timestamp >=sysdate - 10 and timestamp <=sysdate - 1
-)hdrfile  on inputfile.filenamein=hdrfile.filenamehdr and inputfile.timestampin=hdrfile.timestamphdr ) c join  (
-select substr(filename_out,1,instr(filename_out,':',1,2)-1) filenameout,trunc(timestamp) timestampout,cdr_count cdrfo -- pout.*
-from PROC_OUT_AUDIT pout
-where agent_name = 'Proc4_RAFO_Disk' and substr(wf_name,1,9) ='MSC_Proc1'
-and timestamp >=sysdate - 10 and timestamp <=sysdate - 1
-) fofile on c.filenamein=fofile.filenameout and c.timestampin=fofile.timestampout
-and substr(filenamein,5,instr(filenamein,':')-5)||'.'||substr(filenamein,instr(filenamein,':')+3,4) in (
-'ALEXADRAS01A.0651','ACROPOLIS02A.1305')
-order by 1 desc 
-
 select * from dba_users  where ACCOUNT_STATUS like '%%' order by 6 desc
 
 
@@ -676,18 +369,6 @@ truncate table Session_Watcher
 select * from Session_Watcher
 
 select * from dba_audit_trail
-
-select * from coll_audit where filename_in like '%CF0378%' order by 6 desc
-
-select * from dist_audit where filename_in like '%NAMPE01A.CF0378%' order by 6 desc
-
-select * from proc_out_audit WHERE FILENAME_OUT LIKE '%NNYMA01B.9717%' order by 4 DESC
-
-select * from proc_out_audit WHERE FILENAME_OUT LIKE '%NNYMA01B%CF9717%' order by 4 DESC
-
-select * from dist_audit where FILENAME_IN like '%NNYMA01B.9717%' order by 6 DESC
-
-select * from dist_audit where FILENAME_IN like '%NNYMA01B%CF9717%' order by 6 DESC
 
 
 select substr(filenamein,5,instr(filenamein,':')-5)||'.'||substr(filenamein,instr(filenamein,':')+3,4)
@@ -777,7 +458,7 @@ where agent_name = 'Proc4_RAFO_Disk' and substr(wf_name,1,9) ='MSC_Proc1'
 and timestamp >=sysdate - 10 and timestamp <=sysdate - 1
 ) fofile on c.filenamein=fofile.filenameout and c.timestampin=fofile.timestampout
 and substr(filenamein,5,instr(filenamein,':')-5)||'.'||substr(filenamein,instr(filenamein,':')+3,4) in (
-'NAMPE01A.8550','NAMPE01A.8556','NAMPE01A.8566','NAMPE01A.8588','NAMPE01A.8590','NAMPE01A.8591','NAMPE01A.8593','NAMPE01A.8595','NAMPE01A.8596','NAMPE01A.8597','NAMPE01A.8599','NAMPE01A.8601','NAMPE01A.8602','NAMPE01A.8603','NAMPE01A.8605','NAMPE01A.8606','NAMPE01A.8607','NAMPE01A.8608','NAMPE01A.8609','NAMPE01B.8611','NAMPE01B.8645','NAMPE01B.8646','NAMPE01B.8647','NAMPE01B.8648','NAMPE01B.8649','NAMPE01B.8650','NAMPE01B.8651','NAMPE01B.8652','NAMPE01B.8653','NAMPE01B.8654','NAMPE01B.8655','NAMPE01B.8656','NAMPE01B.8657','NAMPE01B.8658','NAMPE01B.8659','NAMPE01B.8660','NAMPE01B.8661','NAMPE01B.8662','NAMPE01B.8663','NAMPE01B.8664','NRENTI01B.9417','NRENTI01B.9426')
+'NAMPE01A.8550'
 order by 1 desc
 
 
