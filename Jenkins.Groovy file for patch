@@ -1,4 +1,4 @@
-@Library('ote-shared-pa') _
+@Library('shared-pa') _
 import com.arhsdev.oteda.Tools
 import java.util.Date
 import java.util.Calendar
@@ -135,7 +135,3 @@ node('agent1') {
         util.cleanNetRepo();
     }
 }
-
-
-
-
