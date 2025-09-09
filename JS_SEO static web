@@ -1,0 +1,96 @@
+
+if ! diff -q <(tail -n +2 $properties_file) <(tail -n +2 $properties_template) >/dev/null; then
+        touch /cdr/COS/work/customImplementations/BQApps/BoxApp/properties/LOG/workaround_properties_file_$dd_stamp.log
+        echo "$dd_stamp: The file has less than 7 lines. The workaround will be performed in 30 mins" >> /cdr/COS/work/customImplementations/BQApps/BoxApp/properties/LOG/workaround_properties_file_$dd_stamp.log
+        sleep 30m
+        dd_stamp_now=`date +%Y%m%d-%H.%M.%S`
+        echo "$dd_stamp_now: Workaround is starting" >> /cdr/COS/work/customImplementations/BQApps/BoxApp/properties/LOG/workaround_properties_file_$dd_stamp.log
+
+        first_line=$(head -n 1 $properties_file)
+
+        sed -i '2,$d' $properties_file
+
+        cat $properties_template >> $properties_file
+
+        sed -i "1s/.*/$first_line/" $properties_file
+        sed '2d' $properties_file >> temp.properties
+        mv temp.properties $properties_file
+        echo "Workaround is completed!" >> /cdr/COS/work/customImplementations/BQApps/BoxApp/properties/LOG/workaround_properties_file_$dd_stamp.log
+
+else
+        echo "The file is ok."
+fi
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="This is a sample meta description for SEO testing.">
+  <title>SEO Stats Example Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .seo-report { background: #f9f9f9; padding: 15px; border-radius: 8px; }
+    .seo-report h2 { margin-top: 0; }
+    .seo-report p { margin: 5px 0; }
+  </style>
+</head>
+<body>
+
+  <h1>SEO Stats Demo</h1>
+  <div class="seo-report" id="seo-stats"></div>
+
+  <script>
+    function generateSEOStats() {
+      const statsContainer = document.getElementById("seo-stats");
+
+      // Title
+      const title = document.title;
+      const titleLength = title.length;
+
+      // Meta Description
+      const metaDescription = document.querySelector("meta[name='description']");
+      const descriptionContent = metaDescription ? metaDescription.content : "No description found";
+      const descriptionLength = descriptionContent.length;
+
+      // Word Count
+      const bodyText = document.body.innerText || "";
+      const wordCount = bodyText.trim().split(/\s+/).length;
+
+      // Headings
+      const headings = {
+        h1: document.querySelectorAll("h1").length,
+        h2: document.querySelectorAll("h2").length,
+        h3: document.querySelectorAll("h3").length,
+        h4: document.querySelectorAll("h4").length,
+        h5: document.querySelectorAll("h5").length,
+        h6: document.querySelectorAll("h6").length
+      };
+
+      // Images with alt
+      const images = document.querySelectorAll("img");
+      let withAlt = 0, withoutAlt = 0;
+      images.forEach(img => {
+        if (img.hasAttribute("alt") && img.alt.trim() !== "") {
+          withAlt++;
+        } else {
+          withoutAlt++;
+        }
+      });
+
+      // Build report
+      statsContainer.innerHTML = `
+        <h2>SEO Statistics</h2>
+        <p><strong>Title:</strong> "${title}" (${titleLength} characters)</p>
+        <p><strong>Meta Description:</strong> "${descriptionContent}" (${descriptionLength} characters)</p>
+        <p><strong>Word Count:</strong> ${wordCount}</p>
+        <p><strong>Headings:</strong> H1(${headings.h1}), H2(${headings.h2}), H3(${headings.h3}), H4(${headings.h4}), H5(${headings.h5}), H6(${headings.h6})</p>
+        <p><strong>Images:</strong> ${withAlt} with alt, ${withoutAlt} without alt</p>
+      `;
+    }
+
+    // Run when page loads
+    document.addEventListener("DOMContentLoaded", generateSEOStats);
+  </script>
+</body>
+</html>
