@@ -1,13 +1,13 @@
 //**********************************************************************************************************************/
-//  Created by Cognity Consulting
+//  Created by XX
 //  
-//  Agent: COS_FX_VoiceRetail.VoiceRetail_WF_Proc1.Filename
+//  Agent: Agent
 //  Abstract: This agent creates the appropriate filenames
 // 
 //  Version  Date        DCR                Author          Comments
 //  --------------------------------------------------------------------------------------------------------------------
-//  v1       03/07/2017  N/A                D.Ioannidis     Creation
-//  v2       10/10/2018  CR-82              V.Mokas         Add dir and filename for FO CF due to Move
+//  v1       
+//  v2        
 //  v3       03/09/2019  Nero               A.Spyropoulos   update for Nero
 //**********************************************************************************************************************/
 import ultra.COS_BM_ULT.COS_ULT_Error_UDRs;
