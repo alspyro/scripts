@@ -1,6 +1,6 @@
 #!/bin/bash
 
-db_connect=$(sh /mzcosmo/.asEncryptedData/getconstr.sh USR TABLE)
+db_connect=$(sh .asEncryptedData/getconstr.sh USR TABLE)
 export ORACLE_HOME=/oracle/app/product/19c/dbhome_1
 export PATH=$ORACLE_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
@@ -17,7 +17,7 @@ SUBJECT="REQ_REQUEST zero size file"
 
 BODY="Dear all,
 
-Please be informed that the REQ_REQUEST file is zero-size.
+Please be informed that the RR file is zero-size.
 
 Detected on: ${date_mail} at ${time_mail}
 
@@ -28,7 +28,7 @@ Note:
 The current e-mail is produced automatically by a monitoring mechanism of \$SYSTEM.
 For any further clarification please communicate with Application Support Section."
 
-SQL_QUERY="SELECT COUNT(*) FROM coll_audit WHERE WF_NAME LIKE '%REQ_REQUEST%' AND TRUNC(timestamp_in) = TRUNC(SYSDATE) AND filesize = 0;"
+SQL_QUERY="SELECT COUNT(*) FROM coll_audit WHERE WF_NAME LIKE '%RR%' AND TRUNC(timestamp_in) = TRUNC(SYSDATE) AND filesize = 0;"
 
 # Execute SQL and capture count
 COUNT=$(sqlplus -s "$db_connect" <<EOF
