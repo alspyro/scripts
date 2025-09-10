@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mini Platformer with Score + Double Jump</title>
+  <title>Mini Platformer with Win & Retry</title>
   <style>
     body {
       margin: 0;
@@ -34,7 +34,7 @@
       jumpPower: -12,
       grounded: false,
       speed: 5,
-      jumps: 0,       // Track jumps for double jump
+      jumps: 0,
       maxJumps: 2
     };
 
@@ -45,6 +45,8 @@
 
     let coin = { x: 350, y: 210, size: 20, color: "gold", collected: false };
     let score = 0;
+    let gameOver = false;
+    let gameWin = false;
 
     const enemy = {
       x: 600,
@@ -76,6 +78,8 @@
     }
 
     function updatePlayer() {
+      if (gameOver || gameWin) return;
+
       // Movement
       if (keys["ArrowLeft"]) player.x -= player.speed;
       if (keys["ArrowRight"]) player.x += player.speed;
@@ -89,7 +93,7 @@
         player.y = ground.y - player.height;
         player.dy = 0;
         player.grounded = true;
-        player.jumps = 0; // Reset jumps
+        player.jumps = 0;
       } else {
         player.grounded = false;
       }
@@ -105,7 +109,7 @@
         player.y = platform.y - player.height;
         player.dy = 0;
         player.grounded = true;
-        player.jumps = 0; // Reset jumps on platform
+        player.jumps = 0;
       }
 
       // Coin collection
@@ -118,7 +122,12 @@
       ) {
         coin.collected = true;
         score += 1;
-        respawnCoin();
+        if (score >= 5) {
+          gameWin = true;
+          handleEndGame("🎉 You Win! Final Score: " + score);
+        } else {
+          respawnCoin();
+        }
       }
 
       // Enemy collision
@@ -128,12 +137,14 @@
         player.y < enemy.y + enemy.height &&
         player.y + player.height > enemy.y
       ) {
-        alert("💀 Game Over! Final Score: " + score);
-        document.location.reload();
+        gameOver = true;
+        handleEndGame("💀 Game Over! Final Score: " + score);
       }
     }
 
     function updateEnemy() {
+      if (gameOver || gameWin) return;
+
       enemy.x += enemy.speed * enemy.dir;
       if (enemy.x < 500 || enemy.x > 700) {
         enemy.dir *= -1;
@@ -141,7 +152,7 @@
     }
 
     function jump() {
-      if (player.jumps < player.maxJumps) {
+      if ((player.grounded || player.jumps < player.maxJumps) && !gameOver && !gameWin) {
         player.dy = player.jumpPower;
         player.jumps++;
       }
@@ -151,6 +162,17 @@
       coin.x = Math.random() * (canvas.width - 50) + 25;
       coin.y = Math.random() * 200 + 100;
       coin.collected = false;
+    }
+
+    function handleEndGame(message) {
+      setTimeout(() => {
+        const retry = confirm(message + "\n\nRetry? (OK = Yes, Cancel = No)");
+        if (retry) {
+          document.location.reload();
+        } else {
+          window.close();
+        }
+      }, 100);
     }
 
     function gameLoop() {
@@ -165,12 +187,14 @@
       drawRect(enemy);
       drawPlayer();
 
-      // Draw Score
+      // Score
       ctx.fillStyle = "black";
       ctx.font = "20px Arial";
       ctx.fillText("Score: " + score, 20, 30);
 
-      requestAnimationFrame(gameLoop);
+      if (!gameOver && !gameWin) {
+        requestAnimationFrame(gameLoop);
+      }
     }
 
     // Controls
