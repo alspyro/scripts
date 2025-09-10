@@ -13,7 +13,7 @@ time_mail=$(date +%H:%M)
 FILEPATH="/dir"
 TO_EMAIL="email"
 LOGFILE="file_${datetime}.log"
-SUBJECT="REQ_REQUEST zero size file"
+SUBJECT="RR_zero size file"
 
 BODY="Dear all,
 
