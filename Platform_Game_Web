@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mini Platformer with Win & Retry</title>
+  <title>Mini Platformer with Extra Platforms</title>
   <style>
     body {
       margin: 0;
@@ -41,7 +41,13 @@
     const keys = {};
 
     const ground = { x: 0, y: 350, width: 800, height: 50, color: "brown" };
-    const platform = { x: 300, y: 250, width: 150, height: 20, color: "darkgreen" };
+
+    // Three platforms
+    const platforms = [
+      { x: 300, y: 250, width: 150, height: 20, color: "darkgreen" }, // middle
+      { x: 150, y: 180, width: 120, height: 20, color: "darkgreen" }, // left high
+      { x: 550, y: 160, width: 120, height: 20, color: "darkgreen" }  // right high
+    ];
 
     let coin = { x: 350, y: 210, size: 20, color: "gold", collected: false };
     let score = 0;
@@ -98,18 +104,20 @@
         player.grounded = false;
       }
 
-      // Platform collision
-      if (
-        player.x < platform.x + platform.width &&
-        player.x + player.width > platform.x &&
-        player.y + player.height > platform.y &&
-        player.y + player.height < platform.y + platform.height &&
-        player.dy >= 0
-      ) {
-        player.y = platform.y - player.height;
-        player.dy = 0;
-        player.grounded = true;
-        player.jumps = 0;
+      // Platform collisions
+      for (let plat of platforms) {
+        if (
+          player.x < plat.x + plat.width &&
+          player.x + player.width > plat.x &&
+          player.y + player.height > plat.y &&
+          player.y + player.height < plat.y + plat.height &&
+          player.dy >= 0
+        ) {
+          player.y = plat.y - player.height;
+          player.dy = 0;
+          player.grounded = true;
+          player.jumps = 0;
+        }
       }
 
       // Coin collection
@@ -182,7 +190,7 @@
       updateEnemy();
 
       drawRect(ground);
-      drawRect(platform);
+      platforms.forEach(drawRect);
       drawCoin();
       drawRect(enemy);
       drawPlayer();
